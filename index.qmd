@@ -1,5 +1,6 @@
 ---
-title: "Walassseee.github.io"
+title: "Portifólio de Data Science"
+subtitle: "Publicações de Estudos e Projetos Aplicados"
 listing:
   contents: posts
   sort: "date desc"
