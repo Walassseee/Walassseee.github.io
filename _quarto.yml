@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Walasse Tomaz"
+  favicon: "favicon.png"
   navbar:
     right:
       - about.qmd
