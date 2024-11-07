@@ -195,8 +195,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Olá, tudo bem?</p>
 <p>O estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.</p>
 <p>Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de <a href="https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9105-producao-da-extracao-vegetal-e-da-silvicultura.html"><em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em></a> do <a href="https://www.ibge.gov.br/"><em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em></a>.</p>
-<section id="resultado-do-mercado-florestal-em-2023" class="level2">
-<h2 class="anchored" data-anchor-id="resultado-do-mercado-florestal-em-2023"><strong>Resultado do Mercado Florestal em 2023</strong></h2>
+<section id="resultado-do-mercado-florestal" class="level2">
+<h2 class="anchored" data-anchor-id="resultado-do-mercado-florestal"><strong>Resultado do Mercado Florestal</strong></h2>
 <p>Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$ 31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.</p>
 <p>Como podemos ver no gráfico abaixo, o produto <strong>Madeira em tora</strong> foi o principal motor desse crescimento, alcançando R$ 19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.</p>
 <div class="cell">
@@ -273,6 +273,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <figure class="figure">
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Quando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pevs_filtrado <span class="ot">&lt;-</span> pevs_valor <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="st">`</span><span class="at">Grande Região</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ano =</span> <span class="fu">as.numeric</span>(Ano)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ano) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">`</span><span class="at">Carvão vegetal</span><span class="st">`</span>, <span class="st">`</span><span class="at">Lenha</span><span class="st">`</span>, <span class="st">`</span><span class="at">Madeira em tora</span><span class="st">`</span>, <span class="st">`</span><span class="at">Outros produtos</span><span class="st">`</span>), sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Carvão vegetal</span><span class="st">`</span>, <span class="st">`</span><span class="at">Lenha</span><span class="st">`</span>, <span class="st">`</span><span class="at">Madeira em tora</span><span class="st">`</span>, <span class="st">`</span><span class="at">Outros produtos</span><span class="st">`</span>), <span class="at">names_to =</span> <span class="st">"Produto"</span>, <span class="at">values_to =</span> <span class="st">"Valor Total"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `summarise()`.
+ℹ In argument: `across(...)`.
+ℹ In group 1: `Ano = 2000`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+Supply arguments directly to `.fns` through an anonymous function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pevs_flow <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pevs_filtrado, <span class="fu">aes</span>(<span class="at">x =</span> Ano, <span class="at">y =</span> <span class="st">`</span><span class="at">Valor Total</span><span class="st">`</span>, <span class="at">color =</span> Produto, <span class="at">group =</span> Produto)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"#000000"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">scale =</span> <span class="fl">1e-6</span>, <span class="at">prefix =</span> <span class="st">"R$"</span>, <span class="at">suffix =</span> <span class="st">" Bi"</span>)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2005</span>, <span class="dv">2010</span>, <span class="dv">2015</span>, <span class="dv">2020</span>, <span class="dv">2023</span>)) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Carvão vegetal"</span> <span class="ot">=</span> <span class="st">"#fdbf11"</span>, <span class="st">"Lenha"</span> <span class="ot">=</span> <span class="st">"#1696d2"</span>, <span class="st">"Madeira em tora"</span> <span class="ot">=</span> <span class="st">"#55b748"</span>, <span class="st">"Outros produtos"</span> <span class="ot">=</span> <span class="st">"#000000"</span>)) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Produção Florestal nos Últimos Anos"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Valor de produção entre 2000 e 2024, R$ Bilhões"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey80"</span>),</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.7</span>, <span class="st">"lines"</span>),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pevs_flow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
