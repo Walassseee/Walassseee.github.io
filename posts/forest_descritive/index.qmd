@@ -167,7 +167,8 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
 pevs_flow
 
 ```
-::: {.callout-tip title="Valores correntes"}
+
+::: {.callout-note}
 Vale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.
 :::
 
