@@ -1,9 +1,11 @@
 ---
 title: "Bem-Vindo ao Meu Portifólio"
 subtitle: "Modelagem Econométrica e Ciência de Dados"
+description: "Bem-vindo ao meu portifólio, no qual compartilho pesquisas em _Modelagem Econométrica_, _Otimização_ e _Ciência de Dados_. Neste local, pretendo compartilhar minhas habilidades, experiências e interesses, bem como explorar novos tópicos que estou aprendendo."
 author: "Walasse Tomaz"
 date: "2024-11-06"
 image: "thumbnail.png"
+category: [Econometrics]
 ---
 
 Olá, tudo bem?
