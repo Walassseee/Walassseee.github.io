@@ -200,7 +200,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$ 31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.</p>
 <p>Como podemos ver no gráfico abaixo, o produto <strong>Madeira em tora</strong> foi o principal motor desse crescimento, alcançando R$ 19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>processar_pevs <span class="ot">&lt;-</span> <span class="cf">function</span>(variavel) {</span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>processar_pevs <span class="ot">&lt;-</span> <span class="cf">function</span>(variavel) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  pevs <span class="ot">&lt;-</span> <span class="fu">get_sidra</span>(<span class="at">x =</span> <span class="dv">291</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">geo =</span> <span class="st">"Region"</span>,</span>
@@ -266,6 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>pevs_chart</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
