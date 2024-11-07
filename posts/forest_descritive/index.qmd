@@ -43,7 +43,7 @@ Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o princip
 
 ```{r}
 #| warning: false
-#| code-overflow: wrap
+#| code-fold: true
 
 processar_pevs <- function(variavel) {
   
