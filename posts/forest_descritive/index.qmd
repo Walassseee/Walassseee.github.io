@@ -20,22 +20,20 @@ Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de
 
 Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$ 31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.
 
-Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R$ 19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.
-
 ```{r}
 #| echo: false
 
-invisible(install.packages("sidrar"))
-invisible(install.packages("dplyr"))
-invisible(install.packages("tidyr"))
-invisible(install.packages("ggplot2"))
-invisible(install.packages("scales"))
+invisible(library(sidrar))
+invisible(library(dplyr))
+invisible(library(tidyr))
+invisible(library(ggplot2))
+invisible(library(scales))
+```
 
-library(sidrar)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(scales)
+
+Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R$ 19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.
+
+```{r}
 
 processar_pevs <- function(variavel) {
   
