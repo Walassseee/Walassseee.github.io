@@ -42,7 +42,6 @@ invisible(library(scales))
 Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R$ 19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.
 
 ```{r}
-#| echo: false
 #| warning: false
 #| code-overflow: wrap
 
