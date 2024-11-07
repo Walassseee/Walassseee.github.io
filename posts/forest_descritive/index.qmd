@@ -16,7 +16,7 @@ O estudo do mercado florestal é uma área de grande interesse para mim, princip
 
 Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de [_Produção da Extração Vegetal e da Silvicultura (PEVS)_](https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9105-producao-da-extracao-vegetal-e-da-silvicultura.html) do [_Instituto Brasileiro de Geografia e Estatística (IBGE)_](https://www.ibge.gov.br/).
 
-## **Resultado do Mercado Florestal em 2023**
+## **Resultado do Mercado Florestal**
 
 Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$ 31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.
 
@@ -112,6 +112,54 @@ pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor
 pevs_chart
 
 ```
+
+Quando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.
+
+```{r}
+#| code-fold: true
+
+pevs_filtrado <- pevs_valor |>
+  select(-`Grande Região`) |>
+  mutate(Ano = as.numeric(Ano)) |>
+  group_by(Ano) |>
+  summarise(across(c(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`), sum, na.rm = TRUE)) |>
+  pivot_longer(cols = c(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`), names_to = "Produto", values_to = "Valor Total")
+
+pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produto, group = Produto)) +
+  geom_line(size = 1.1) +
+  geom_point(shape = 21, fill = "white", size = 2.5) +
+  geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
+  scale_y_continuous(labels = scales::label_number(scale = 1e-6, prefix = "R$", suffix = " Bi")) +
+  scale_x_continuous(breaks = c(2000, 2005, 2010, 2015, 2020, 2023)) +
+  scale_color_manual(values = c("Carvão vegetal" = "#fdbf11", "Lenha" = "#1696d2", "Madeira em tora" = "#55b748", "Outros produtos" = "#000000")) +
+  labs(
+    title = "Produção Florestal nos Últimos Anos",
+    subtitle = "Valor de produção entre 2000 e 2024, R$ Bilhões",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_line(color = "grey80"),
+    panel.grid.major.x = element_blank(),
+    legend.position = "top",
+    legend.title = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.key.size = unit(0.7, "lines"),
+    axis.text.x = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_text(hjust = 0),
+    plot.caption.position = "plot",
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank()
+  )
+
+
+pevs_flow
+
+```
+
 
 ## **Conclusão**
 
