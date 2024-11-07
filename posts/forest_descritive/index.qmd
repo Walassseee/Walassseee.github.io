@@ -117,6 +117,7 @@ Quando observamos estes valores de produção ao longo do tempo, os resultados s
 
 ```{r}
 #| code-fold: true
+#| warning: false
 
 pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
