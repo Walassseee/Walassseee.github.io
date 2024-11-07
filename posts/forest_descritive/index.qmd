@@ -43,6 +43,7 @@ Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o princip
 
 ```{r}
 #| code-fold: true
+#| warning: false
 
 processar_pevs <- function(variavel) {
   
@@ -141,7 +142,7 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
   scale_color_manual(values = c("Carvão vegetal" = "#fdbf11", "Lenha" = "#1696d2", "Madeira em tora" = "#55b748", "Outros produtos" = "#000000")) +
   labs(
     title = "Produção Florestal nos Últimos Anos",
-    subtitle = "Valor de produção entre 2000 e 2024, R$ Bilhões",
+    subtitle = "Valor de produção entre 2000 e 2023, R$ Bilhões",
     x = NULL,
     y = NULL
   ) +
@@ -166,7 +167,9 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
 pevs_flow
 
 ```
-
+::: {.callout-tip title="Valores correntes"}
+Vale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.
+:::
 
 ## **Conclusão**
 
