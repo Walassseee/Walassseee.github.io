@@ -122,11 +122,17 @@ pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
   mutate(Ano = as.numeric(Ano)) |>
   group_by(Ano) |>
-  summarise(across(c(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`), sum, na.rm = TRUE)) |>
-  pivot_longer(cols = c(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`), names_to = "Produto", values_to = "Valor Total")
+  summarise(
+    `Carvão vegetal` = sum(`Carvão vegetal`, na.rm = TRUE),
+    `Lenha` = sum(`Lenha`, na.rm = TRUE),
+    `Madeira em tora` = sum(`Madeira em tora`, na.rm = TRUE),
+    `Outros produtos` = sum(`Outros produtos`, na.rm = TRUE)
+  ) |>
+  pivot_longer(cols = c(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`),
+               names_to = "Produto", values_to = "Valor Total")
 
 pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produto, group = Produto)) +
-  geom_line(size = 1.1) +
+  geom_line(linewidth = 1.1) +
   geom_point(shape = 21, fill = "white", size = 2.5) +
   geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
   scale_y_continuous(labels = scales::label_number(scale = 1e-6, prefix = "R$", suffix = " Bi")) +
