@@ -44,6 +44,7 @@ Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o princip
 ```{r}
 #| echo: false
 #| warning: false
+#| code-overflow: wrap
 
 processar_pevs <- function(variavel) {
   
@@ -91,11 +92,11 @@ pevs_filtrado <- pevs_valor |>
 
 pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor(Ano))) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_text(aes(label = sprintf("R$%.1f Mi", Total / 1e6)), position = position_dodge(width = 0.8), vjust = -0.7, size = 3) +
+  geom_text(aes(label = sprintf("R$%.1f Bi", Total / 1e6)), position = position_dodge(width = 0.8), vjust = -0.7, size = 3) +
   geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
   scale_y_continuous(labels = NULL) +
-  scale_fill_manual(values = c("2022" = "#1696d2", "2023" = "#fdbf11")) +
-  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Milhões", x = NULL, y = NULL) +
+  scale_fill_manual(values = c("2022" = "#1a2e19", "2023" = "#55b748")) +
+  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Bilhões", x = NULL, y = NULL) +
   theme_minimal() +
   theme(
     panel.grid = element_blank(),

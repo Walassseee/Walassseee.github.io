@@ -1,4 +1,4 @@
-install.packages("urbnthemes")
+# install.packages("urbnthemes")
 
 # LIB ##########################################################################
 library(sidrar)
@@ -94,21 +94,21 @@ processar_pevs <- function(variavel) {
 
 pevs_valor <- processar_pevs(143)
 
-pevs_filtrado <- pevs_valor %>%
-  select(-`Grande Região`) %>%
-  filter(Ano %in% c(2022, 2023)) %>%
+pevs_filtrado <- pevs_valor |>
+  select(-`Grande Região`) |>
+  filter(Ano %in% c(2022, 2023)) |>
   pivot_longer(cols = c(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`), 
-               names_to = "Produto", values_to = "Valor") %>%
-  group_by(Produto, Ano) %>%
+               names_to = "Produto", values_to = "Valor") |>
+  group_by(Produto, Ano) |>
   summarise(Total = sum(Valor), .groups = "drop")
 
 pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor(Ano))) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_text(aes(label = sprintf("R$%.2f Mi", Total / 1e6)), position = position_dodge(width = 0.8), vjust = -0.7, size = 3.2) +
-  geom_hline(yintercept = 0, color = "#000000", size = 1) +
+  geom_text(aes(label = sprintf("R$%.1f Bi", Total / 1e6)), position = position_dodge(width = 0.8), vjust = -0.7, size = 3) +
+  geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
   scale_y_continuous(labels = NULL) +
-  scale_fill_manual(values = c("2022" = "#000000", "2023" = "#46ABDB")) +
-  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Milhões", x = NULL, y = NULL) +
+  scale_fill_manual(values = c("2022" = "#1a2e19", "2023" = "#55b748")) +
+  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Bilhões", x = NULL, y = NULL) +
   theme_minimal() +
   theme(
     panel.grid = element_blank(),
@@ -123,6 +123,6 @@ pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor
     plot.caption.position = "plot"
   )
 
-print(pevs_chart)
+pevs_chart
 
 
