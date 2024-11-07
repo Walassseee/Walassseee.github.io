@@ -25,6 +25,12 @@ Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o princip
 ```{r}
 #| echo: false
 
+invisible(install.packages("sidrar"))
+invisible(install.packages("dplyr"))
+invisible(install.packages("tidyr"))
+invisible(install.packages("ggplot2"))
+invisible(install.packages("scales"))
+
 library(sidrar)
 library(dplyr)
 library(tidyr)
