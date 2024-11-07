@@ -5,7 +5,8 @@ description: "Bem-vindo ao meu portifólio, no qual compartilho pesquisas em _Mo
 author: "Walasse Tomaz"
 date: "2024-11-06"
 image: "thumbnail.png"
-categories: ["Econometrics"]
+categories:
+  - Econometrics
 ---
 
 Olá, tudo bem?
