@@ -18,20 +18,20 @@ Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de
 
 ## **Resultado do Mercado Florestal**
 
-Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$ 31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.
+Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R\$31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.
 
 ```{r}
 #| echo: false
 #| warning: false
 #| output: false
 
-install.packages("sidrar")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("ggplot2")
-install.packages("scales")
-install.packages("geobr")
-install.packages("ggtext")
+invisible(install.packages("sidrar"))
+invisible(install.packages("dplyr"))
+invisible(install.packages("tidyr"))
+invisible(install.packages("ggplot2"))
+invisible(install.packages("scales"))
+invisible(install.packages("geobr"))
+invisible(install.packages("ggtext"))
 
 library(sidrar)
 library(dplyr)
@@ -43,7 +43,7 @@ library(ggtext)
 ```
 
 
-Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R$ 19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.
+Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R\$19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.
 
 ```{r}
 #| code-fold: true
@@ -178,7 +178,7 @@ pevs_flow
 Vale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.
 :::
 
-Podemos também análisar a força de cada região do Brasil nesta industria. É notável a grande produção do setor florestal adivinda das regiões sul e sudeste, sendo R\$13,8 e R\$11,5 Bilhões em valor de produção, correspondendo a produção dessas duas regiões a 79,7% de toda produção nacional.
+Também podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R\$ 13,8 bilhões e R\$ 11,5 bilhões, respectivamente. Essas duas regiões correspondem a 79,7% de toda a produção nacional.
 
 ```{r}
 #| code-fold: true
