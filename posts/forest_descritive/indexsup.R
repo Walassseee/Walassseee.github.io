@@ -1,13 +1,13 @@
-# install.packages("urbnthemes")
+#install.packages("ggtext")
 
 # LIB ##########################################################################
 library(sidrar)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-library(gridExtra)
 library(scales)
-library(gt)
+library(geobr)
+library(ggtext)
 
 # ETL ##########################################################################
 
@@ -49,6 +49,8 @@ pevs_valor <- processar_pevs(143)
 
 # EDA ##########################################################################
 
+# 
+
 pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
   filter(Ano %in% c(2022, 2023)) |>
@@ -63,7 +65,7 @@ pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor
   geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
   scale_y_continuous(labels = NULL) +
   scale_fill_manual(values = c("2022" = "#1a2e19", "2023" = "#55b748")) +
-  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Bilhões", x = NULL, y = NULL) +
+  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Bilhões", x = NULL, y = NULL, caption = "<b>Fonte</b>: Produção da Extração Vegetal e da Silvicultura (PEVS)") +
   theme_minimal() +
   theme(
     panel.grid = element_blank(),
@@ -74,7 +76,7 @@ pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor
     axis.text.x = element_text(face = "bold"),
     plot.title = element_text(hjust = 0, face = "bold"),
     plot.subtitle = element_text(hjust = 0),
-    plot.caption = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
     plot.caption.position = "plot"
   )
 
@@ -104,7 +106,8 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
     title = "Produção Florestal nos Últimos Anos",
     subtitle = "Valor de produção entre 2000 e 2024, R$ Bilhões",
     x = NULL,
-    y = NULL
+    y = NULL,
+    caption = "<b>Fonte</b>: Produção da Extração Vegetal e da Silvicultura (PEVS)"
   ) +
   theme_minimal() +
   theme(
@@ -117,7 +120,7 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
     axis.text.x = element_text(face = "bold"),
     plot.title = element_text(hjust = 0, face = "bold"),
     plot.subtitle = element_text(hjust = 0),
-    plot.caption = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
     plot.caption.position = "plot",
     axis.title.x = element_blank(),
     axis.title.y = element_blank()
@@ -125,3 +128,49 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
 
 
 pevs_flow
+
+pevs_filtrado <- pevs_valor |>
+  filter(Ano == 2023) |>
+  mutate(`Grande Região` = case_when(
+    `Grande Região` == "Centro-Oeste" ~ "Centro Oeste",
+    TRUE ~ `Grande Região`
+  )) |>
+  group_by(`Grande Região`) |>
+  summarise(`Valor Total` = sum(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`, na.rm = TRUE), .groups = "drop") |>
+  mutate(`Valor Total` = `Valor Total` / 1e6)
+
+regioes <- geobr::read_region(year = 2019)
+
+map_data <- regioes |>
+  left_join(pevs_filtrado, by = c("name_region" = "Grande Região"))
+
+pevs_map <- ggplot(map_data) +
+  geom_sf(aes(fill = `Valor Total`), color = "white") +
+  scale_fill_gradient(low = "#e5f5e0", high = "#006d2c", 
+                      labels = label_number(prefix = "R$", suffix = " Bi"),
+                      name = "Valor Total") +
+  labs(
+    title = "Produção Florestal Brasileira",
+    subtitle = "Grandes Regiões em 2023, R$ Bilhões",
+    caption = "<b>Fonte</b>: Produção da Extração Vegetal e da Silvicultura (PEVS)",
+    x = NULL, y = NULL
+  ) +
+  geom_sf_label(aes(label = name_region), 
+                size = 3, color = "black", 
+                fontface = "bold", 
+                label.padding = unit(0.3, "lines"), 
+                fill = "white") +
+  geom_sf_text(aes(label = sprintf("R$%.1f Bi", `Valor Total`)),
+               size = 3, color = "black", 
+               fontface = "italic", 
+               vjust = 2.5) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    legend.title = element_blank(),
+    plot.caption = element_markdown(hjust = 0),
+    plot.caption.position = "plot"
+  )
+
+pevs_map
