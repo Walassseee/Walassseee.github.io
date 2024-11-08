@@ -49,8 +49,6 @@ pevs_valor <- processar_pevs(143)
 
 # EDA ##########################################################################
 
-# 
-
 pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
   filter(Ano %in% c(2022, 2023)) |>
