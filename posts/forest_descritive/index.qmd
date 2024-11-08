@@ -19,34 +19,63 @@ Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de
 
 ## **Resultado do Mercado Florestal**
 
-Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R\$31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.
+Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R\$31.7 bilhões, um crescimento de 13.6% em relação ao ano anterior.
 
-Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R\$19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.
+Como podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R\$19.4 bilhões em 2023, um aumento de 18.1% em comparação ao ano de 2022.
 
 
-![](pevs_prod)
+![](pevs_prod.png)
 
 
 Quando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.
 
 
-![](pevs_flow)
+![](pevs_flow.png)
 
 
 ::: {.callout-note}
 Vale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.
 :::
 
-Também podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R\$ 13,8 bilhões e R\$ 11,5 bilhões, respectivamente. Essas duas regiões correspondem a 79,7% de toda a produção nacional.
+Também podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R\$13.8 bilhões e R\$11.5 bilhões, respectivamente. Essas duas regiões correspondem a 79.7% de toda a produção nacional.
 
 
 ![](pevs_map.png)
 
 
-**Continuação...**
+## **Estatísticas do Mercado Florestal**
+
+Quando observamos a série em nível de toda a produção, é evidente que ela segue o mesmo caminho do produto mais influente, a madeira em tora, assim como seu valor médio móvel, aqui escolhido o de 3 períodos pelo tamanho reduzido da amostra. Porém, caso queiramos ver a série sem a tendência, podemos utilizar a primeira diferença, que nos retorna o valor da variação.
+
+
+![](pevs_level-fdiff.png)
+
+
+Podemos observar que, na série com a retirada da tendência, as variações em média permaneciam dentro de um intervalo estável, entre crescimento zero e um aumento de R\$2.5 bilhões. No entanto, é notável o ponto de ruptura a partir de 2019, quando a série passou a operar em uma faixa superior, entre R\$2.5 bilhões e R\$5.0 bilhões.
+
+## **Um Novo Paramatar do Mercado Florestal**
+
+É evidente que os dados mostram um cenário otimista, com um novo patamar na produção do setor florestal, especialmente na silvicultura. No entanto, estamos lidando com variáveis econômicas mensuradas em unidades monetárias, no caso os reais, portanto, essas séries não consideram as variações de preços ocorridas durante o período analisado.
 
 ## **Conclusão**
 
-Fiquem com Deus! 
+Por fim, esta análise descritiva levanta algumas hipóteses que poderão ser de interesse para análises futuras. Enumeradas em uma lista, temos as seguintes perguntas:
+
+O crescimento se mantém com dados deflacionados?
+: Como mencionado anteriormente, anos de alta inflação podem impactar os resultados de crescimento. Sendo assim, seria necessária uma análise mais detalhada desse fenômeno para determinar se o crescimento do setor é real ou apenas nominal.
+
+O setor empurra a economia ou é puxado por ela?
+: Que o setor florestal é importante é inegável, mas estamos tratando de um setor que é a locomotiva da economia brasileira ou de um setor que cresce à medida que a economia como um todo cresce?
+
+O setor é impactado por quais variáveis econômicas?
+: Quais são os determinantes do crescimento do setor? Seria a demanda global, o aumento da produtividade e o barateamento dos preços relativos? Ou o acesso ao crédito?
+
+Essas questões podem nos ajudar a fazer inferências e até mesmo projeções sobre o futuro do setor.
+
+Por hoje é só.
+
+Fiquem com Deus!
 
 Tchau.
+
+**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_](https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/forest_descritive/indexsup.R).**

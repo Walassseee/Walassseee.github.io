@@ -1,6 +1,9 @@
-#install.packages("ggtext")
 
+install.packages("gridExtra")
+
+# INICIALIZAÇÃO ################################################################
 # LIB ##########################################################################
+
 library(sidrar)
 library(dplyr)
 library(tidyr)
@@ -8,6 +11,8 @@ library(ggplot2)
 library(scales)
 library(geobr)
 library(ggtext)
+library(zoo)
+library(gridExtra)
 
 # ETL ##########################################################################
 
@@ -48,8 +53,7 @@ processar_pevs <- function(variavel) {
 pevs_valor <- processar_pevs(143)
 
 # EDA ##########################################################################
-
-## PEVS POR PRODUTO
+## PEVS POR PRODUTO ############################################################
 
 pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
@@ -81,7 +85,7 @@ ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor(Ano))) +
   )
 
 
-## PEVS NO TEMPO
+## PEVS NO TEMPO ###############################################################
 
 pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
@@ -105,7 +109,7 @@ ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produto, group = P
   scale_color_manual(values = c("Carvão vegetal" = "#fdbf11", "Lenha" = "#1696d2", "Madeira em tora" = "#55b748", "Outros produtos" = "#000000")) +
   labs(
     title = "Produção Florestal nos Últimos Anos",
-    subtitle = "Valor de produção entre 2000 e 2024, R$ Bilhões",
+    subtitle = "Valor de produção entre 2000 e 2023, R$ Bilhões",
     x = NULL,
     y = NULL,
     caption = "<b>Fonte</b>: Produção da Extração Vegetal e da Silvicultura (PEVS)"
@@ -127,7 +131,7 @@ ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produto, group = P
     axis.title.y = element_blank()
   )
 
-## PEVS NO BRASIL
+## PEVS NO BRASIL ##############################################################
 
 pevs_filtrado <- pevs_valor |>
   filter(Ano == 2023) |>
@@ -173,3 +177,103 @@ ggplot(map_data) +
     plot.caption.position = "plot"
   )
 
+## TENDENCIA GERAL #############################################################
+
+pevs_filtrado <- pevs_valor |>
+  mutate(Ano = as.numeric(Ano)) |>
+  filter(Ano >= 2000 & Ano <= 2023) |>
+  mutate(`Valor Total` = `Carvão vegetal` + `Lenha` + `Madeira em tora` + `Outros produtos`) |>
+  group_by(Ano) |>
+  summarise(`Valor Total` = sum(`Valor Total`, na.rm = TRUE), .groups = "drop")
+
+pevs_filtrado <- pevs_filtrado |>
+  mutate(
+    media_movel = rollapply(`Valor Total`, width = 3, FUN = mean, align = "right", fill = NA),
+    desvio_movel = rollapply(`Valor Total`, width = 3, FUN = sd, align = "right", fill = NA)
+  )
+
+prod_nivel <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`)) +
+  geom_line(linewidth = 1.1, color = "#55b748") + 
+  geom_point(shape = 21, fill = "white", size = 2.5) +
+  geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
+  scale_y_continuous(labels = label_number(scale = 1e-6, prefix = "R$", suffix = " Bi")) +
+  scale_x_continuous(breaks = c(2000, 2005, 2010, 2015, 2020, 2023)) +
+  geom_line(aes(y = media_movel), color = "#1a2e19", linewidth = 1) + 
+  geom_ribbon(aes(ymin = `Valor Total` - desvio_movel, ymax = `Valor Total` + desvio_movel), 
+              fill = "#1a2e19", alpha = 0.1) +
+  labs(
+    title = "Produção Florestal Total nos Últimos Anos",
+    subtitle = "Valor de produção entre 2000 e 2023, R$ Bilhões",
+    x = NULL,
+    y = NULL,
+    caption = ""
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_line(color = "grey80"),
+    panel.grid.major.x = element_blank(),
+    legend.position = "top",
+    legend.title = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.key.size = unit(0.7, "lines"),
+    axis.text.x = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
+    plot.caption.position = "plot",
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank()
+  )
+
+## VARIAÇÃO GERAL ##############################################################
+
+pevs_filtrado <- pevs_valor |>
+  mutate(Ano = as.numeric(Ano)) |>
+  filter(Ano >= 2000 & Ano <= 2023) |>
+  mutate(`Valor Total` = `Carvão vegetal` + `Lenha` + `Madeira em tora` + `Outros produtos`) |>
+  group_by(Ano) |>
+  summarise(`Valor Total` = sum(`Valor Total`, na.rm = TRUE), .groups = "drop")
+
+pevs_filtrado <- pevs_filtrado |>
+  mutate(`Variação` = `Valor Total` - lag(`Valor Total`))
+
+pevs_filtrado <- pevs_filtrado |>
+  mutate(
+    media_movel = rollapply(`Variação`, width = 3, FUN = mean, align = "right", fill = NA),
+    desvio_movel = rollapply(`Variação`, width = 3, FUN = sd, align = "right", fill = NA)
+  )
+
+prod_fdiff <- ggplot(pevs_filtrado, aes(x = Ano, y = `Variação`)) +
+  geom_line(linewidth = 1.1, color = "#55b748") + 
+  geom_point(shape = 21, fill = "white", size = 2.5) +
+  geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
+  scale_y_continuous(labels = label_number(scale = 1e-6, prefix = "R$", suffix = " Bi")) +
+  scale_x_continuous(breaks = c(2000, 2005, 2010, 2015, 2020, 2023)) +
+  geom_line(aes(y = media_movel), color = "#1a2e19", linewidth = 1) + 
+  geom_ribbon(aes(ymin = `Variação` - desvio_movel, ymax = `Variação` + desvio_movel), 
+              fill = "#1a2e19", alpha = 0.1) +
+  labs(
+    title = "Produção Florestal em 1° Diferença",
+    subtitle = "Variação da produção entre 2000 e 2023, R$ Bilhões",
+    x = NULL,
+    y = NULL,
+    caption = "<b>Fonte</b>: Produção da Extração Vegetal e da Silvicultura (PEVS)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_line(color = "grey80"),
+    panel.grid.major.x = element_blank(),
+    legend.position = "top",
+    legend.title = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.key.size = unit(0.7, "lines"),
+    axis.text.x = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
+    plot.caption.position = "plot",
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank()
+  )
+
+grid.arrange(prod_nivel, prod_fdiff, nrow = 2)
