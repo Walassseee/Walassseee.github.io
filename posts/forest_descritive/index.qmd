@@ -30,6 +30,8 @@ install.packages("dplyr")
 install.packages("tidyr")
 install.packages("ggplot2")
 install.packages("scales")
+install.packages("geobr")
+install.packages("ggtext")
 
 library(sidrar)
 library(dplyr)
@@ -97,7 +99,7 @@ pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor
   geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
   scale_y_continuous(labels = NULL) +
   scale_fill_manual(values = c("2022" = "#1a2e19", "2023" = "#55b748")) +
-  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Bilhões", x = NULL, y = NULL) +
+  labs(title = "Valor Total da Produção Floresta", subtitle = "Comparação entre 2022 e 2023, R$ Bilhões", x = NULL, y = NULL, caption = "<b>Fonte</b>: Produção da Extração Vegetal e da Silvicultura (PEVS)") +
   theme_minimal() +
   theme(
     panel.grid = element_blank(),
@@ -108,7 +110,7 @@ pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor
     axis.text.x = element_text(face = "bold"),
     plot.title = element_text(hjust = 0, face = "bold"),
     plot.subtitle = element_text(hjust = 0),
-    plot.caption = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
     plot.caption.position = "plot"
   )
 
@@ -144,9 +146,10 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
   scale_color_manual(values = c("Carvão vegetal" = "#fdbf11", "Lenha" = "#1696d2", "Madeira em tora" = "#55b748", "Outros produtos" = "#000000")) +
   labs(
     title = "Produção Florestal nos Últimos Anos",
-    subtitle = "Valor de produção entre 2000 e 2023, R$ Bilhões",
+    subtitle = "Valor de produção entre 2000 e 2024, R$ Bilhões",
     x = NULL,
-    y = NULL
+    y = NULL,
+    caption = "<b>Fonte</b>: Produção da Extração Vegetal e da Silvicultura (PEVS)"
   ) +
   theme_minimal() +
   theme(
@@ -159,11 +162,12 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
     axis.text.x = element_text(face = "bold"),
     plot.title = element_text(hjust = 0, face = "bold"),
     plot.subtitle = element_text(hjust = 0),
-    plot.caption = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
     plot.caption.position = "plot",
     axis.title.x = element_blank(),
     axis.title.y = element_blank()
   )
+
 
 
 pevs_flow
