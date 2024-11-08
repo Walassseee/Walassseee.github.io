@@ -1,0 +1,15 @@
+{
+  "hash": "5c2ec347096762aaf7b392b3c64e927e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"O Mercado Florestal Brasileiro\"\nsubtitle: \"Uma Análise Descritiva de Dados\"\ndescription: \"Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de _Produção da Extração Vegetal e da Silvicultura (PEVS)_ do _Instituto Brasileiro de Geografia e Estatística (IBGE)_.\"\nauthor: \"Walasse Tomaz\"\ndate: \"2024-11-07\"\nimage: \"thumbnail.png\"\ncategories:\n  - Econometrics\n  - Forest Market\n---\n\n\n\nOlá, tudo bem?\n\nO estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.\n\nNeste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de [_Produção da Extração Vegetal e da Silvicultura (PEVS)_](https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9105-producao-da-extracao-vegetal-e-da-silvicultura.html) do [_Instituto Brasileiro de Geografia e Estatística (IBGE)_](https://www.ibge.gov.br/).\n\n## **Resultado do Mercado Florestal**\n\nEm 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R\\$31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.\n\n\n\n::: {.cell}\n\n:::\n\n\n\n\nComo podemos ver no gráfico abaixo, o produto **Madeira em tora** foi o principal motor desse crescimento, alcançando R\\$19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.\n\n![Caption](pevs_prod)\n\nQuando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.\n\n![Caption](pevs_flow)\n\n::: {.callout-note}\nVale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.\n:::\n\nTambém podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R\\$ 13,8 bilhões e R\\$ 11,5 bilhões, respectivamente. Essas duas regiões correspondem a 79,7% de toda a produção nacional.\n\n![Caption](pevs_map.png)\n\n\n## **Conclusão**\n\nFiquem com Deus! \n\nTchau.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

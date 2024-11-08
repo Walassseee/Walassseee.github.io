@@ -6,7 +6,7 @@ author: "Walasse Tomaz"
 date: "2024-11-06"
 image: "thumbnail.png"
 categories:
-  - Econometrics
+  - Econometria
 ---
 
 Olá, tudo bem?

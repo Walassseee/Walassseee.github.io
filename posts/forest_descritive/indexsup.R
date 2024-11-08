@@ -49,6 +49,8 @@ pevs_valor <- processar_pevs(143)
 
 # EDA ##########################################################################
 
+## PEVS POR PRODUTO
+
 pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
   filter(Ano %in% c(2022, 2023)) |>
@@ -57,7 +59,7 @@ pevs_filtrado <- pevs_valor |>
   group_by(Produto, Ano) |>
   summarise(Total = sum(Valor), .groups = "drop")
 
-pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor(Ano))) +
+ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor(Ano))) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_text(aes(label = sprintf("R$%.1f Bi", Total / 1e6)), position = position_dodge(width = 0.8), vjust = -0.7, size = 3) +
   geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
@@ -78,7 +80,8 @@ pevs_chart <- ggplot(pevs_filtrado, aes(x = Produto, y = Total, fill = as.factor
     plot.caption.position = "plot"
   )
 
-pevs_chart
+
+## PEVS NO TEMPO
 
 pevs_filtrado <- pevs_valor |>
   select(-`Grande Região`) |>
@@ -93,7 +96,7 @@ pevs_filtrado <- pevs_valor |>
   pivot_longer(cols = c(`Carvão vegetal`, `Lenha`, `Madeira em tora`, `Outros produtos`),
                names_to = "Produto", values_to = "Valor Total")
 
-pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produto, group = Produto)) +
+ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produto, group = Produto)) +
   geom_line(linewidth = 1.1) +
   geom_point(shape = 21, fill = "white", size = 2.5) +
   geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
@@ -124,8 +127,7 @@ pevs_flow <- ggplot(pevs_filtrado, aes(x = Ano, y = `Valor Total`, color = Produ
     axis.title.y = element_blank()
   )
 
-
-pevs_flow
+## PEVS NO BRASIL
 
 pevs_filtrado <- pevs_valor |>
   filter(Ano == 2023) |>
@@ -142,7 +144,7 @@ regioes <- geobr::read_region(year = 2019)
 map_data <- regioes |>
   left_join(pevs_filtrado, by = c("name_region" = "Grande Região"))
 
-pevs_map <- ggplot(map_data) +
+ggplot(map_data) +
   geom_sf(aes(fill = `Valor Total`), color = "white") +
   scale_fill_gradient(low = "#e5f5e0", high = "#006d2c", 
                       labels = label_number(prefix = "R$", suffix = " Bi"),
@@ -171,4 +173,3 @@ pevs_map <- ggplot(map_data) +
     plot.caption.position = "plot"
   )
 
-pevs_map

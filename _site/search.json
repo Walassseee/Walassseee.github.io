@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "posts/forest_descritive/index.html",
+    "href": "posts/forest_descritive/index.html",
+    "title": "O Mercado Florestal Brasileiro",
+    "section": "",
+    "text": "Olá, tudo bem?\nO estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.\nNeste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE)."
+  },
+  {
+    "objectID": "posts/forest_descritive/index.html#resultado-do-mercado-florestal",
+    "href": "posts/forest_descritive/index.html#resultado-do-mercado-florestal",
+    "title": "O Mercado Florestal Brasileiro",
+    "section": "Resultado do Mercado Florestal",
+    "text": "Resultado do Mercado Florestal\nEm 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$31,7 bilhões, um crescimento de 13,6% em relação ao ano anterior.\nComo podemos ver no gráfico abaixo, o produto Madeira em tora foi o principal motor desse crescimento, alcançando R$19,4 bilhões em 2023, um aumento de 18,1% em comparação ao ano de 2022.\n\n\n\nCaption\n\n\nQuando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.\n\n\n\nCaption\n\n\n\n\n\n\n\n\nNote\n\n\n\nVale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.\n\n\nTambém podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R$ 13,8 bilhões e R$ 11,5 bilhões, respectivamente. Essas duas regiões correspondem a 79,7% de toda a produção nacional.\n\n\n\nCaption"
+  },
+  {
+    "objectID": "posts/forest_descritive/index.html#conclusão",
+    "href": "posts/forest_descritive/index.html#conclusão",
+    "title": "O Mercado Florestal Brasileiro",
+    "section": "Conclusão",
+    "text": "Conclusão\nFiquem com Deus!\nTchau."
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Bem-Vindo ao Meu Portifólio",
+    "section": "",
+    "text": "Olá, tudo bem?\nBem-vindo ao meu portifólio, no qual compartilho pesquisas em Modelagem Econométrica, Otimização e Ciência de Dados. Neste local, pretendo compartilhar minhas habilidades, experiências e interesses, bem como explorar novos tópicos que estou aprendendo."
+  },
+  {
+    "objectID": "posts/welcome/index.html#sobre-o-autor",
+    "href": "posts/welcome/index.html#sobre-o-autor",
+    "title": "Bem-Vindo ao Meu Portifólio",
+    "section": "Sobre o Autor",
+    "text": "Sobre o Autor\nSou estudante do 10º período do curso de graduação em Ciências Econômicas na Universidade Federal do Paraná (UFPR), que foi eleita a 9ª melhor universidade do Brasil pelo Ranking da Folha de São Paulo. Durante o curso, me destaquei e me especializei em disciplinas relacionadas à econometria. Em 2023, fui monitor bolsista na disciplina de Estatística Econômica e Econometria.\nPara o ano de 2025, pretendo ingressar no programa de mestrado profissional em Economia pela UFPR. Meu projeto será focado em economia aplicada ao mercado florestal e nos impactos das sanções econômicas à Rússia no mercado global.\nProfissionalmente, sou Analista de Custos Júnior em uma empresa do mercado de correntes para motosserras. Desenvolvo diversas atividades relacionadas a Business Intelligence e elaboração de relatórios financeiros, sempre buscando ganhos de produtividade por meio de automações. Sou responsável pelas estimativas dos custos de produção e dos impactos financeiros."
+  },
+  {
+    "objectID": "posts/welcome/index.html#tópicos-abordados",
+    "href": "posts/welcome/index.html#tópicos-abordados",
+    "title": "Bem-Vindo ao Meu Portifólio",
+    "section": "Tópicos Abordados",
+    "text": "Tópicos Abordados\nDesenvolveremos estudos e projetos sobre diversos tópicos específicos, sempre com uma abordagem prática, utilizando dados reais e focada na resolução de problemas.\n\nMétodos Econométricos\n\nRegressões Lineares\n\nOs modelos econométricos de regressão linear são provavelmente os mais utilizados no mundo. Sua capacidade de modelar relações lineares entre variáveis de maneira eficiente e sem vieses é uma grande vantagem deste tipo de modelo.\n\n\n\n\n\n\n\n\nNote\n\n\n\nDentro deste amplo grupo de modelos de regressão linear, vale destacar que existem várias maneiras de estimá-los. O método mais comum é através dos Mínimos Quadrados Ordinários (MQO). No entanto, também temos outras duas abordagens frequentemente utilizadas: o Método de Máxima Verossimilhança (MV) e o Método dos Momentos (MM).\n\n\n\nModelos de Escolha Binária\n\nOs modelos de escolha discreta são muito interessantes para a determinação das probabilidades de ocorrência de um evento. O modelo de Regressão Logística é, nesse caso, o principal modelo utilizado.\n\nSéries Temporais\n\nA análise de modelos de séries temporais é uma parte fundamental da econometria. Esse tipo de análise nos permite observar tendências, sazonalidades e rupturas nos dados, possibilitando algo muito interessante: projeções futuras da série.\n\n\nObviamente, estes são apenas alguns dos modelos que serão abordados neste espaço. Também discutiremos brevemente os modelos de Dados em Painel, que combinam séries temporais e dados de corte transversal. Não se preocupe, em posts subsequentes me dedicarei a explicar esses tipos de dados. Além disso, exploraremos os Modelos Espaciais, que estão ganhando grande força na econometria moderna.\nVale ressaltar que também abordaremos tópicos de otimização, como programação linear, pesquisa operacional e otimização não linear. Além disso, trataremos de modelos em ciência de dados para análises de cluster, problemas de classificação, big data e redes neurais, utilizando todas as suas vantagens em comparação à estatística e econometria clássica."
+  },
+  {
+    "objectID": "posts/welcome/index.html#conclusão",
+    "href": "posts/welcome/index.html#conclusão",
+    "title": "Bem-Vindo ao Meu Portifólio",
+    "section": "Conclusão",
+    "text": "Conclusão\nPor fim, gostaria de agradecer a você que leu até aqui. Espero que este portfólio possa inspirar pessoas e mostrar as grandes coisas que podem ser desenvolvidas com o conteúdo presente aqui.\nFiquem com Deus!\nTchau."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Sobre",
+    "section": "",
+    "text": "Estudante de Economia pela Universidade Federal do Paraná e Analista de Custos Júnior pela Oregon Tool, Aplicando Insights de Projetos de Economia Aplicada e Modelagem Econométrica Desenvolvidos Durante Meus Estudos às Funções onde atuo. Comprometido em Contribuir para o Sucesso da Equipe e da Empresa."
+  }
+]
