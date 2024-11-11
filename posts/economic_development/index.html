@@ -164,15 +164,43 @@ ul.task-list li input[type="checkbox"] {
 <p>O crescimento econômico é um dos temas mais recorrentes quando falamos de economia. Sem dúvida, você já ouviu falar sobre o Produto Interno Bruto (PIB). Muitos associam o crescimento do PIB ao sucesso de uma gestão, mas será que isso é sempre verdade? Essa questão, no entanto, não é o foco deste post.</p>
 <p>Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis? Embora exista uma extensa literatura sobre o tema, com modelos complexos e um arcabouço teórico robusto, nossa abordagem aqui será mais prática e acessível.</p>
 <p>O exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo, incluindo a verificação de multicolinearidade e heterocedasticidade.</p>
-<section id="dados-de-corrupção-e-crescimento" class="level2">
-<h2 class="anchored" data-anchor-id="dados-de-corrupção-e-crescimento"><strong>Dados de Corrupção e Crescimento</strong></h2>
+<section id="dados-de-corrupção-e-crescimento-e-controles" class="level2">
+<h2 class="anchored" data-anchor-id="dados-de-corrupção-e-crescimento-e-controles"><strong>Dados de Corrupção e Crescimento e Controles</strong></h2>
+<p>Neste exercício, vamos usar informações de diversas fontes de renome. Inicialmente, o <a href="https://www.taxcomplexity.org/">Tax Complexity Index_</a> fornecerá dados acerca da complexidade fiscal de diversos países. Adicionalmente, as informações do <a href="https://ourworldindata.org/"><em>Our World in Data</em></a> abrangerão índices de corrupção e o Produto Interno Bruto per capita. Finalmente, serão obtidas variáveis de controle como Educação e Expectativa de Vida da base de dados do <a href="https://data.worldbank.org/"><em>Banco Mundial</em></a>.</p>
+<p>Essas fontes proporcionam uma perspectiva confiável para analisar como elementos como a corrupção e a complexidade fiscal podem impactar o desenvolvimento econômico.</p>
+<p>Abaixo temos uma breve visão de como os dados se comportam:</p>
+<p><img src="dataset_table.png" class="img-fluid"> A base contém dados de 43 nações para 2022, caracterizando os dados como uma seção transversal (cross-section). Este formato é significativo, pois orienta na seleção do modelo mais apropriado para a análise.</p>
+</section>
+<section id="análise-descritiva-das-distribuições" class="level2">
+<h2 class="anchored" data-anchor-id="análise-descritiva-das-distribuições"><strong>Análise Descritiva das Distribuições</strong></h2>
+<p>Nesta parte, realizaremos algumas análises descritivas dos dados, visando entender mais profundamente a dinâmica das distribuições das variáveis. Esta etapa é fundamental, uma vez que os modelos de regressão linear são mais adequados para variáveis contínuas e, idealmente, para aquelas com uma distribuição próxima à <em>distribuição normal</em>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A distribuição normal é uma forma comum de distribuição de probabilidade usada em estatística e ciências, marcada por sua forma simétrica e formato de sino. Ela explica a distribuição dos dados em torno de uma média, onde a maior parte dos valores se encontra próxima ao centro, com a chance de encontrar valores extremos (extremamente maiores ou menores) diminuindo à medida que nos distanciamos da média.</p>
+</div>
+</div>
+<p>Ao analisar a distribuição das variáveis, podemos detectar eventuais assimetrias ou desvios que possam comprometer a validade dos resultados, além de auxiliar na determinação se será necessária alguma modificação nos dados antes de implementarmos o modelo.</p>
+<p>Vamos observar o comportamento da nossa variável dependente, o crescimento econômico, representado pelo Produto Interno Bruto per capita, e da nossa variável explicativa principal, a corrupção, medida pelo índice de corrupção.</p>
+<p><img src="medidas_resumo_yx.png" class="img-fluid"></p>
+<p>Como podemos observar, a mediana é menor do que a média tanto para a distribuição do crescimento econômico quanto para a corrupção. Isso pode indicar que essas variáveis apresentam distribuições assimétricas.</p>
+<p>Podemos testar essa hipótese utilizando os valores de assimetria e curtose, que fornecem informações sobre a forma da distribuição e o grau de achatamento. Além disso, é possível realizar testes de hipótese para avaliar a normalidade das distribuições, como o teste de Shapiro-Wilk, que nos ajudarão a determinar se as variáveis seguem uma distribuição normal ou não.</p>
+<p>Abaixo mostro os resultados dos testes que confirmam a não normalidade dos dados:</p>
+<p><img src="norm_test_yx.png" class="img-fluid"></p>
 </section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão"><strong>Conclusão</strong></h2>
 <p>Por hoje é só.</p>
 <p>Fiquem com Deus!</p>
 <p>Tchau.</p>
-<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href=""><em>Github</em></a>.</strong></p>
+<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/tree/main/posts/economic_development"><em>Github</em></a>.</strong></p>
 
 
 </section>
