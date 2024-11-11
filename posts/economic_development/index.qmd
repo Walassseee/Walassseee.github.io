@@ -4,7 +4,7 @@ subtitle: "Uma Análise de Regressão"
 description: "Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?"
 author: "Walasse Tomaz"
 date: "2024-11-11"
-image: "thumbnail.png"
+image: "thumbnail_post2.png"
 categories:
   - Econometria
   - Regressão Linear
@@ -30,4 +30,4 @@ Fiquem com Deus!
 
 Tchau.
 
-**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_]().**
+**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_](https://github.com/Walassseee/Walassseee.github.io/tree/main/posts/economic_development).**

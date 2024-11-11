@@ -3,8 +3,8 @@ title: "O Mercado Florestal Brasileiro"
 subtitle: "Uma Análise Descritiva de Dados"
 description: "Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de _Produção da Extração Vegetal e da Silvicultura (PEVS)_ do _Instituto Brasileiro de Geografia e Estatística (IBGE)_."
 author: "Walasse Tomaz"
-date: "2024-11-07"
-image: "thumbnail.png"
+date: "2024-11-08"
+image: "thumbnail_post1.png"
 categories:
   - Econometria
   - Mercado Florestal
