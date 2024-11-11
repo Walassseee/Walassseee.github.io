@@ -20,7 +20,39 @@ Neste post, vamos explorar um exercício de análise dos efeitos da corrupção 
 
 O exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo, incluindo a verificação de multicolinearidade e heterocedasticidade.
 
-## **Dados de Corrupção e Crescimento**
+## **Dados de Corrupção e Crescimento e Controles**
+
+Neste exercício, vamos usar informações de diversas fontes de renome. Inicialmente, o [Tax Complexity Index_](https://www.taxcomplexity.org/) fornecerá dados acerca da complexidade fiscal de diversos países. Adicionalmente, as informações do [_Our World in Data_](https://ourworldindata.org/) abrangerão índices de corrupção e o Produto Interno Bruto per capita. Finalmente, serão obtidas variáveis de controle como Educação e Expectativa de Vida da base de dados do [_Banco Mundial_](https://data.worldbank.org/).
+
+Essas fontes proporcionam uma perspectiva confiável para analisar como elementos como a corrupção e a complexidade fiscal podem impactar o desenvolvimento econômico.
+
+Abaixo temos uma breve visão de como os dados se comportam:
+
+![](dataset_table.png)
+A base contém dados de 43 nações para 2022, caracterizando os dados como uma seção transversal (cross-section). Este formato é significativo, pois orienta na seleção do modelo mais apropriado para a análise.
+
+## **Análise Descritiva das Distribuições**
+
+Nesta parte, realizaremos algumas análises descritivas dos dados, visando entender mais profundamente a dinâmica das distribuições das variáveis. Esta etapa é fundamental, uma vez que os modelos de regressão linear são mais adequados para variáveis contínuas e, idealmente, para aquelas com uma distribuição próxima à _distribuição normal_.
+
+:::{.callout-note}
+A distribuição normal é uma forma comum de distribuição de probabilidade usada em estatística e ciências, marcada por sua forma simétrica e formato de sino. Ela explica a distribuição dos dados em torno de uma média, onde a maior parte dos valores se encontra próxima ao centro, com a chance de encontrar valores extremos (extremamente maiores ou menores) diminuindo à medida que nos distanciamos da média.
+:::
+
+Ao analisar a distribuição das variáveis, podemos detectar eventuais assimetrias ou desvios que possam comprometer a validade dos resultados, além de auxiliar na determinação se será necessária alguma modificação nos dados antes de implementarmos o modelo.
+
+Vamos observar o comportamento da nossa variável dependente, o crescimento econômico, representado pelo Produto Interno Bruto per capita, e da nossa variável explicativa principal, a corrupção, medida pelo índice de corrupção.
+
+![](medidas_resumo_yx.png)
+
+
+Como podemos observar, a mediana é menor do que a média tanto para a distribuição do crescimento econômico quanto para a corrupção. Isso pode indicar que essas variáveis apresentam distribuições assimétricas.
+
+Podemos testar essa hipótese utilizando os valores de assimetria e curtose, que fornecem informações sobre a forma da distribuição e o grau de achatamento. Além disso, é possível realizar testes de hipótese para avaliar a normalidade das distribuições, como o teste de Shapiro-Wilk, que nos ajudarão a determinar se as variáveis seguem uma distribuição normal ou não.
+
+Abaixo mostro os resultados dos testes que confirmam a não normalidade dos dados: 
+
+![](norm_test_yx.png)
 
 ## **Conclusão**
 

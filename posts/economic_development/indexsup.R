@@ -2,6 +2,11 @@ library(dplyr)
 library(readxl)
 library(corrplot)
 library(car)
+library(gt)
+library(e1071)
+library(tibble)
+
+# etl de dados #################################################################
 
 # Depending variable
 gdp_percapita <- read.csv2("posts/economic_development/gdp-per-capita-worldbank.csv", sep = ",", dec = ".")
@@ -39,57 +44,79 @@ data <- data |> rename(Growth = ny_gdp_pcap_pp_kd,
                        Tax = `Tax Complexity Index`,
                        Corruption = corruption_vdem__estimate_best__aggregate_method_average,
                        Education = `Primary.completion.rate..total....of.relevant.age.group...SE.PRM.CMPT.ZS.`,
-                       Life.expectancy = `Life.expectancy.at.birth..total..years...SP.DYN.LE00.IN.`)
+                       `Life expectancy` = `Life.expectancy.at.birth..total..years...SP.DYN.LE00.IN.`)
 
 data <- data |> filter(Education != "..")
 
 data$Education <- as.numeric(data$Education)
-data$Life.expectancy <- as.numeric(data$Life.expectancy)
+data$`Life expectancy` <- as.numeric(data$`Life expectancy`)
 
-par(mfrow=c(2,3))
+# eda de dados #################################################################
 
-hist(data$Growth, main = "Distribuição do Produto per capita",
-     xlab = "Produto per capita", ylab = "")
+length(unique(data$Entity))
 
-hist(data$Tax, main = "Distribuição do Índice de Tributação",
-     xlab = "Índice de Tributação", ylab = "")
+table_eda <- gt(data = head(data))
+table_eda <- table_eda |> tab_header(
+  title = "Dados de Corrupção e Crescimento.",
+  subtitle = "Valores para o Ano de 2022, contém 43 países"
+) |> tab_footnote(
+  footnote = "Fonte: Elaboração do autor."
+)
+table_eda
 
-hist(data$Corruption, main = "Distribuição do Índice de Corrupção",
-     xlab = "Índice de Corrupção", ylab = "")
+summary_table1 <- data %>%
+  summarize(
+    Máximo = max(Growth, na.rm = TRUE),
+    Média = mean(Growth, na.rm = TRUE),
+    Mediana = median(Growth, na.rm = TRUE),
+    `Desvio Padrão` = sd(Growth, na.rm = TRUE),
+    Minímo = min(Growth, na.rm = TRUE),
+  )
+summary_table1 <- as.data.frame(t(summary_table1))
+colnames(summary_table1) <- c("Growth")
 
-hist(data$Education, main = "Distribuição do Grau de Educação",
-     xlab = "Grau de Educação", ylab = "")
+summary_table2 <- data %>%
+  summarize(
+    Máximo = max(Corruption, na.rm = TRUE),
+    Média = mean(Corruption, na.rm = TRUE),
+    Mediana = median(Corruption, na.rm = TRUE),
+    `Desvio Padrão` = sd(Corruption, na.rm = TRUE),
+    Minímo = min(Corruption, na.rm = TRUE),
+  )
+summary_table2 <- as.data.frame(t(summary_table2))
+colnames(summary_table2) <- c("Corruption")
 
-hist(data$Life.expectancy, main = "Distribuição da Saúde",
-     xlab = "Expectativa de Vida", ylab = "")
+summary_table <- cbind(summary_table1, summary_table2)
+summary_table$Estatística <- rownames(summary_table)
+summary_table <- summary_table[c("Estatística", "Growth", "Corruption")]
 
-data$lnGrowth <- log(data$Growth)
+table_corrup_grownt <- gt(data = summary_table)
+table_corrup_grownt <- table_corrup_grownt |> tab_header(
+  title = "Médidas Resumo das Variáveis.",
+  subtitle = "Variável dependente e explicativa."
+) |> tab_footnote(
+  footnote = "Fonte: Elaboração do autor."
+)
+table_corrup_grownt
 
-par(mfrow=c(1,1))
-hist(data$lnGrowth, main = "Distribuição do Ln(Produto per capita)",
-     xlab = "ln(Produto per capita)", ylab = "")
+skew_growth <- skewness(data$Growth, na.rm = TRUE)
+skew_corruption <- skewness(data$Corruption, na.rm = TRUE)
+kurt_growth <- kurtosis(data$Growth, na.rm = TRUE)
+kurt_corruption <- kurtosis(data$Corruption, na.rm = TRUE)
+shapiro_growth <- shapiro.test(data$Growth)
+shapiro_corruption <- shapiro.test(data$Corruption)
 
-par(mfrow=c(2,2))
-plot(data$lnGrowth ~ data$Corruption, main = "Correlação Ln(Produto per capita) e Corrupção",
-     xlab = "Índice de Corrupção", ylab = "ln(Produto per capita)")
-plot(data$lnGrowth ~ data$Tax, main = "Correlação Ln(Produto per capita) e Tributação",
-     xlab = "Índice de Tributação", ylab = "ln(Produto per capita)")
-plot(data$lnGrowth ~ data$Education, main = "Correlação Ln(Produto per capita) e Grau de Educação",
-     xlab = "Grau de Educação", ylab = "ln(Produto per capita)")
-plot(data$lnGrowth ~ data$Life.expectancy, main = "Correlação Ln(Produto per capita) e Saúde",
-     xlab = "Expectativa de Vida", ylab = "ln(Produto per capita)")
+summary_table <- tibble(
+  Variável = c("Crescimento Econômico", "Corrupção"),
+  "Assimetria (Skewness)" = c(skew_growth, skew_corruption),
+  "Curtose" = c(kurt_growth, kurt_corruption),
+  "Shapiro-Wilk p-valor" = c(shapiro_growth$p.value, shapiro_corruption$p.value)
+)
+summary_table <- gt(summary_table) |> tab_header(
+  title = "Medidas e Testes de Normalidade",
+  subtitle = "Variável dependente e explicativa."
+) |> tab_footnote(
+  footnote = "Fonte: Elaboração do autor."
+)
+summary_table
 
-corMatrix <- cor(data[c("lnGrowth", "Corruption", "Tax",
-                        "Education", "Life.expectancy")])
-
-par(mfrow=c(1,1))
-corrplot(corMatrix, method = "color", type = "lower", addCoef.col = "white", 
-         tl.col = "black", tl.srt = 45, number.cex = 0.8)
-
-reg <- lm(lnGrowth ~ Corruption + Tax + Education + Life.expectancy, data = data)
-summary(reg)
-
-vif_values <- vif(reg)
-
-barplot(vif_values, main = "Fator de Inflação da Variância", horiz = TRUE, 
-        xlab = "Fator de Inflação da Variância", las = 1, cex.names = 0.8)
