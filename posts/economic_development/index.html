@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Walasse Tomaz">
+<meta name="dcterms.date" content="2024-11-07">
+<meta name="description" content="Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE).">
 
-<title>Portifólio de Data Science – Walasse Tomaz</title>
+<title>O Mercado Florestal Brasileiro – Walasse Tomaz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./favicon.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,77 +70,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Walasse Tomaz</span>
     </a>
   </div>
@@ -150,7 +93,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item compact">
@@ -168,159 +111,117 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Portifólio de Data Science</h1>
-            <p class="subtitle lead">Publicações de Estudos e Projetos Aplicados</p>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">O Mercado Florestal Brasileiro</h1>
+            <p class="subtitle lead">Uma Análise Descritiva de Dados</p>
+                  <div>
+        <div class="description">
+          Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de <em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em> do <em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em>.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Econometria</div>
+                <div class="quarto-category">Mercado Florestal</div>
+                <div class="quarto-category">Análise Descritiva</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Walasse Tomaz </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 7, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Análise Descritiva">Análise Descritiva <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Crescimento Econômico">Crescimento Econômico <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Econometria">Econometria <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Mercado Florestal">Mercado Florestal <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Regressão Linear">Regressão Linear <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p>Olá, tudo bem?</p>
+<p>O estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.</p>
+<p>Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de <a href="https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9105-producao-da-extracao-vegetal-e-da-silvicultura.html"><em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em></a> do <a href="https://www.ibge.gov.br/"><em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em></a>.</p>
+<section id="resultado-do-mercado-florestal" class="level2">
+<h2 class="anchored" data-anchor-id="resultado-do-mercado-florestal"><strong>Resultado do Mercado Florestal</strong></h2>
+<p>Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$31.7 bilhões, um crescimento de 13.6% em relação ao ano anterior.</p>
+<p>Como podemos ver no gráfico abaixo, o produto <strong>Madeira em tora</strong> foi o principal motor desse crescimento, alcançando R$19.4 bilhões em 2023, um aumento de 18.1% em comparação ao ano de 2022.</p>
+<p><img src="pevs_prod.png" class="img-fluid"></p>
+<p>Quando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.</p>
+<p><img src="pevs_flow.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.</p>
+</div>
+</div>
+<p>Também podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R$13.8 bilhões e R$11.5 bilhões, respectivamente. Essas duas regiões correspondem a 79.7% de toda a produção nacional.</p>
+<p><img src="pevs_map.png" class="img-fluid"></p>
+</section>
+<section id="estatísticas-do-mercado-florestal" class="level2">
+<h2 class="anchored" data-anchor-id="estatísticas-do-mercado-florestal"><strong>Estatísticas do Mercado Florestal</strong></h2>
+<p>Quando observamos a série em nível de toda a produção, é evidente que ela segue o mesmo caminho do produto mais influente, a madeira em tora, assim como seu valor médio móvel, aqui escolhido o de 3 períodos pelo tamanho reduzido da amostra. Porém, caso queiramos ver a série sem a tendência, podemos utilizar a primeira diferença, que nos retorna o valor da variação.</p>
+<p><img src="pevs_level-fdiff.png" class="img-fluid"></p>
+<p>Podemos observar que, na série com a retirada da tendência, as variações em média permaneciam dentro de um intervalo estável, entre crescimento zero e um aumento de R$2.5 bilhões. No entanto, é notável o ponto de ruptura a partir de 2019, quando a série passou a operar em uma faixa superior, entre R$2.5 bilhões e R$5.0 bilhões.</p>
+</section>
+<section id="um-novo-paramatar-do-mercado-florestal" class="level2">
+<h2 class="anchored" data-anchor-id="um-novo-paramatar-do-mercado-florestal"><strong>Um Novo Paramatar do Mercado Florestal</strong></h2>
+<p>É evidente que os dados mostram um cenário otimista, com um novo patamar na produção do setor florestal, especialmente na silvicultura. No entanto, estamos lidando com variáveis econômicas mensuradas em unidades monetárias, no caso os reais, portanto, essas séries não consideram as variações de preços ocorridas durante o período analisado.</p>
+</section>
+<section id="conclusão" class="level2">
+<h2 class="anchored" data-anchor-id="conclusão"><strong>Conclusão</strong></h2>
+<p>Por fim, esta análise descritiva levanta algumas hipóteses que poderão ser de interesse para análises futuras. Enumeradas em uma lista, temos as seguintes perguntas:</p>
+<dl>
+<dt>O crescimento se mantém com dados deflacionados?</dt>
+<dd>
+Como mencionado anteriormente, anos de alta inflação podem impactar os resultados de crescimento. Sendo assim, seria necessária uma análise mais detalhada desse fenômeno para determinar se o crescimento do setor é real ou apenas nominal.
+</dd>
+<dt>O setor empurra a economia ou é puxado por ela?</dt>
+<dd>
+Que o setor florestal é importante é inegável, mas estamos tratando de um setor que é a locomotiva da economia brasileira ou de um setor que cresce à medida que a economia como um todo cresce?
+</dd>
+<dt>O setor é impactado por quais variáveis econômicas?</dt>
+<dd>
+Quais são os determinantes do crescimento do setor? Seria a demanda global, o aumento da produtividade e o barateamento dos preços relativos? Ou o acesso ao crédito?
+</dd>
+</dl>
+<p>Essas questões podem nos ajudar a fazer inferências e até mesmo projeções sobre o futuro do setor.</p>
+<p>Por hoje é só.</p>
+<p>Fiquem com Deus!</p>
+<p>Tchau.</p>
+<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/forest_descritive/indexsup.R"><em>Github</em></a>.</strong></p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Econometria,Regressão Linear,Análise Descritiva,Crescimento Econômico" data-listing-date-sort="1731283200000" data-listing-file-modified-sort="1731346805654" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="161">
-<div class="thumbnail">
-<p><a href="./posts/forest_descritive/index.html" class="no-external"></a></p><a href="./posts/forest_descritive/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/forest_descritive/thumbnail.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/forest_descritive/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/forest_descritive/index.html" class="no-external">Crescimento Econômico</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/forest_descritive/index.html" class="no-external">Uma Análise de Regressão</a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Econometria'); return false;">
-Econometria
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Regressão Linear'); return false;">
-Regressão Linear
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Análise Descritiva'); return false;">
-Análise Descritiva
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Crescimento Econômico'); return false;">
-Crescimento Econômico
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/forest_descritive/index.html" class="no-external">Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/forest_descritive/index.html" class="no-external">
-<div class="listing-date">
-Nov 11, 2024
-</div>
-<div class="listing-author">
-Walasse Tomaz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Econometria,Mercado Florestal,Análise Descritiva" data-listing-date-sort="1730937600000" data-listing-file-modified-sort="1731346805646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="608">
-<div class="thumbnail">
-<p><a href="./posts/economic_development/index.html" class="no-external"></a></p><a href="./posts/economic_development/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/economic_development/thumbnail.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/economic_development/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/economic_development/index.html" class="no-external">O Mercado Florestal Brasileiro</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/economic_development/index.html" class="no-external">Uma Análise Descritiva de Dados</a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Econometria'); return false;">
-Econometria
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Mercado Florestal'); return false;">
-Mercado Florestal
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Análise Descritiva'); return false;">
-Análise Descritiva
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/economic_development/index.html" class="no-external">Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de <em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em> do <em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em>.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/economic_development/index.html" class="no-external">
-<div class="listing-date">
-Nov 7, 2024
-</div>
-<div class="listing-author">
-Walasse Tomaz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Econometria" data-listing-date-sort="1730851200000" data-listing-file-modified-sort="1731346805658" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="498">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/welcome/thumbnail.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Bem-Vindo ao Meu Portifólio</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external">Modelagem Econométrica e Ciência de Dados</a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Econometria'); return false;">
-Econometria
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">Bem-vindo ao meu portifólio, no qual compartilho pesquisas em <em>Modelagem Econométrica</em>, <em>Otimização</em> e <em>Ciência de Dados</em>. Neste local, pretendo compartilhar minhas habilidades, experiências e interesses, bem como explorar novos tópicos que estou aprendendo.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Nov 6, 2024
-</div>
-<div class="listing-author">
-Walasse Tomaz
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
