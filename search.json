@@ -30,37 +30,23 @@
   {
     "objectID": "posts/economic_development/index.html",
     "href": "posts/economic_development/index.html",
-    "title": "O Mercado Florestal Brasileiro",
+    "title": "Crescimento Econômico",
     "section": "",
-    "text": "Olá, tudo bem?\nO estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.\nNeste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE)."
+    "text": "Olá, tudo bem?\nO crescimento econômico é um dos temas mais recorrentes quando falamos de economia. Sem dúvida, você já ouviu falar sobre o Produto Interno Bruto (PIB). Muitos associam o crescimento do PIB ao sucesso de uma gestão, mas será que isso é sempre verdade? Essa questão, no entanto, não é o foco deste post.\nNeste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis? Embora exista uma extensa literatura sobre o tema, com modelos complexos e um arcabouço teórico robusto, nossa abordagem aqui será mais prática e acessível.\nO exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo, incluindo a verificação de multicolinearidade e heterocedasticidade."
   },
   {
-    "objectID": "posts/economic_development/index.html#resultado-do-mercado-florestal",
-    "href": "posts/economic_development/index.html#resultado-do-mercado-florestal",
-    "title": "O Mercado Florestal Brasileiro",
-    "section": "Resultado do Mercado Florestal",
-    "text": "Resultado do Mercado Florestal\nEm 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$31.7 bilhões, um crescimento de 13.6% em relação ao ano anterior.\nComo podemos ver no gráfico abaixo, o produto Madeira em tora foi o principal motor desse crescimento, alcançando R$19.4 bilhões em 2023, um aumento de 18.1% em comparação ao ano de 2022.\n\nQuando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.\n\n\n\n\n\n\n\nNote\n\n\n\nVale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.\n\n\nTambém podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R$13.8 bilhões e R$11.5 bilhões, respectivamente. Essas duas regiões correspondem a 79.7% de toda a produção nacional."
-  },
-  {
-    "objectID": "posts/economic_development/index.html#estatísticas-do-mercado-florestal",
-    "href": "posts/economic_development/index.html#estatísticas-do-mercado-florestal",
-    "title": "O Mercado Florestal Brasileiro",
-    "section": "Estatísticas do Mercado Florestal",
-    "text": "Estatísticas do Mercado Florestal\nQuando observamos a série em nível de toda a produção, é evidente que ela segue o mesmo caminho do produto mais influente, a madeira em tora, assim como seu valor médio móvel, aqui escolhido o de 3 períodos pelo tamanho reduzido da amostra. Porém, caso queiramos ver a série sem a tendência, podemos utilizar a primeira diferença, que nos retorna o valor da variação.\n\nPodemos observar que, na série com a retirada da tendência, as variações em média permaneciam dentro de um intervalo estável, entre crescimento zero e um aumento de R$2.5 bilhões. No entanto, é notável o ponto de ruptura a partir de 2019, quando a série passou a operar em uma faixa superior, entre R$2.5 bilhões e R$5.0 bilhões."
-  },
-  {
-    "objectID": "posts/economic_development/index.html#um-novo-paramatar-do-mercado-florestal",
-    "href": "posts/economic_development/index.html#um-novo-paramatar-do-mercado-florestal",
-    "title": "O Mercado Florestal Brasileiro",
-    "section": "Um Novo Paramatar do Mercado Florestal",
-    "text": "Um Novo Paramatar do Mercado Florestal\nÉ evidente que os dados mostram um cenário otimista, com um novo patamar na produção do setor florestal, especialmente na silvicultura. No entanto, estamos lidando com variáveis econômicas mensuradas em unidades monetárias, no caso os reais, portanto, essas séries não consideram as variações de preços ocorridas durante o período analisado."
+    "objectID": "posts/economic_development/index.html#dados-de-corrupção-e-crescimento",
+    "href": "posts/economic_development/index.html#dados-de-corrupção-e-crescimento",
+    "title": "Crescimento Econômico",
+    "section": "Dados de Corrupção e Crescimento",
+    "text": "Dados de Corrupção e Crescimento"
   },
   {
     "objectID": "posts/economic_development/index.html#conclusão",
     "href": "posts/economic_development/index.html#conclusão",
-    "title": "O Mercado Florestal Brasileiro",
+    "title": "Crescimento Econômico",
     "section": "Conclusão",
-    "text": "Conclusão\nPor fim, esta análise descritiva levanta algumas hipóteses que poderão ser de interesse para análises futuras. Enumeradas em uma lista, temos as seguintes perguntas:\n\nO crescimento se mantém com dados deflacionados?\n\nComo mencionado anteriormente, anos de alta inflação podem impactar os resultados de crescimento. Sendo assim, seria necessária uma análise mais detalhada desse fenômeno para determinar se o crescimento do setor é real ou apenas nominal.\n\nO setor empurra a economia ou é puxado por ela?\n\nQue o setor florestal é importante é inegável, mas estamos tratando de um setor que é a locomotiva da economia brasileira ou de um setor que cresce à medida que a economia como um todo cresce?\n\nO setor é impactado por quais variáveis econômicas?\n\nQuais são os determinantes do crescimento do setor? Seria a demanda global, o aumento da produtividade e o barateamento dos preços relativos? Ou o acesso ao crédito?\n\n\nEssas questões podem nos ajudar a fazer inferências e até mesmo projeções sobre o futuro do setor.\nPor hoje é só.\nFiquem com Deus!\nTchau.\nTodos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu Github."
+    "text": "Conclusão\nPor hoje é só.\nFiquem com Deus!\nTchau.\nTodos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu Github."
   },
   {
     "objectID": "about.html",
@@ -79,22 +65,36 @@
   {
     "objectID": "posts/forest_descritive/index.html",
     "href": "posts/forest_descritive/index.html",
-    "title": "Crescimento Econômico",
+    "title": "O Mercado Florestal Brasileiro",
     "section": "",
-    "text": "Olá, tudo bem?\nO crescimento econômico é um dos temas mais recorrentes quando falamos de economia. Sem dúvida, você já ouviu falar sobre o Produto Interno Bruto (PIB). Muitos associam o crescimento do PIB ao sucesso de uma gestão, mas será que isso é sempre verdade? Essa questão, no entanto, não é o foco deste post.\nNeste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis? Embora exista uma extensa literatura sobre o tema, com modelos complexos e um arcabouço teórico robusto, nossa abordagem aqui será mais prática e acessível.\nO exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo, incluindo a verificação de multicolinearidade e heterocedasticidade."
+    "text": "Olá, tudo bem?\nO estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.\nNeste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE)."
   },
   {
-    "objectID": "posts/forest_descritive/index.html#dados-de-corrupção-e-crescimento",
-    "href": "posts/forest_descritive/index.html#dados-de-corrupção-e-crescimento",
-    "title": "Crescimento Econômico",
-    "section": "Dados de Corrupção e Crescimento",
-    "text": "Dados de Corrupção e Crescimento"
+    "objectID": "posts/forest_descritive/index.html#resultado-do-mercado-florestal",
+    "href": "posts/forest_descritive/index.html#resultado-do-mercado-florestal",
+    "title": "O Mercado Florestal Brasileiro",
+    "section": "Resultado do Mercado Florestal",
+    "text": "Resultado do Mercado Florestal\nEm 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$31.7 bilhões, um crescimento de 13.6% em relação ao ano anterior.\nComo podemos ver no gráfico abaixo, o produto Madeira em tora foi o principal motor desse crescimento, alcançando R$19.4 bilhões em 2023, um aumento de 18.1% em comparação ao ano de 2022.\n\nQuando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.\n\n\n\n\n\n\n\nNote\n\n\n\nVale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.\n\n\nTambém podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R$13.8 bilhões e R$11.5 bilhões, respectivamente. Essas duas regiões correspondem a 79.7% de toda a produção nacional."
+  },
+  {
+    "objectID": "posts/forest_descritive/index.html#estatísticas-do-mercado-florestal",
+    "href": "posts/forest_descritive/index.html#estatísticas-do-mercado-florestal",
+    "title": "O Mercado Florestal Brasileiro",
+    "section": "Estatísticas do Mercado Florestal",
+    "text": "Estatísticas do Mercado Florestal\nQuando observamos a série em nível de toda a produção, é evidente que ela segue o mesmo caminho do produto mais influente, a madeira em tora, assim como seu valor médio móvel, aqui escolhido o de 3 períodos pelo tamanho reduzido da amostra. Porém, caso queiramos ver a série sem a tendência, podemos utilizar a primeira diferença, que nos retorna o valor da variação.\n\nPodemos observar que, na série com a retirada da tendência, as variações em média permaneciam dentro de um intervalo estável, entre crescimento zero e um aumento de R$2.5 bilhões. No entanto, é notável o ponto de ruptura a partir de 2019, quando a série passou a operar em uma faixa superior, entre R$2.5 bilhões e R$5.0 bilhões."
+  },
+  {
+    "objectID": "posts/forest_descritive/index.html#um-novo-paramatar-do-mercado-florestal",
+    "href": "posts/forest_descritive/index.html#um-novo-paramatar-do-mercado-florestal",
+    "title": "O Mercado Florestal Brasileiro",
+    "section": "Um Novo Paramatar do Mercado Florestal",
+    "text": "Um Novo Paramatar do Mercado Florestal\nÉ evidente que os dados mostram um cenário otimista, com um novo patamar na produção do setor florestal, especialmente na silvicultura. No entanto, estamos lidando com variáveis econômicas mensuradas em unidades monetárias, no caso os reais, portanto, essas séries não consideram as variações de preços ocorridas durante o período analisado."
   },
   {
     "objectID": "posts/forest_descritive/index.html#conclusão",
     "href": "posts/forest_descritive/index.html#conclusão",
-    "title": "Crescimento Econômico",
+    "title": "O Mercado Florestal Brasileiro",
     "section": "Conclusão",
-    "text": "Conclusão\nPor hoje é só.\nFiquem com Deus!\nTchau.\nTodos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu Github."
+    "text": "Conclusão\nPor fim, esta análise descritiva levanta algumas hipóteses que poderão ser de interesse para análises futuras. Enumeradas em uma lista, temos as seguintes perguntas:\n\nO crescimento se mantém com dados deflacionados?\n\nComo mencionado anteriormente, anos de alta inflação podem impactar os resultados de crescimento. Sendo assim, seria necessária uma análise mais detalhada desse fenômeno para determinar se o crescimento do setor é real ou apenas nominal.\n\nO setor empurra a economia ou é puxado por ela?\n\nQue o setor florestal é importante é inegável, mas estamos tratando de um setor que é a locomotiva da economia brasileira ou de um setor que cresce à medida que a economia como um todo cresce?\n\nO setor é impactado por quais variáveis econômicas?\n\nQuais são os determinantes do crescimento do setor? Seria a demanda global, o aumento da produtividade e o barateamento dos preços relativos? Ou o acesso ao crédito?\n\n\nEssas questões podem nos ajudar a fazer inferências e até mesmo projeções sobre o futuro do setor.\nPor hoje é só.\nFiquem com Deus!\nTchau.\nTodos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu Github."
   }
 ]
