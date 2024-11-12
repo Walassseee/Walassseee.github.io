@@ -18,7 +18,7 @@ O crescimento econômico é um dos temas mais recorrentes quando falamos de econ
 
 Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis? Embora exista uma extensa literatura sobre o tema, com modelos complexos e um arcabouço teórico robusto, nossa abordagem aqui será mais prática e acessível.
 
-O exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo, incluindo a verificação de multicolinearidade e heterocedasticidade.
+O exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo.
 
 ## **Dados de Corrupção e Crescimento e Controles**
 
@@ -63,7 +63,7 @@ Os gráficos tornam evidente as assimetrias das distribuições, proporcionando 
 ### **Transformação Logaritimica**
 
 Vamos aplicar uma transformação logarítmica nos dados de crescimento econômico com o objetivo de corrigir a assimetria observada na distribuição da variável. Além disso, essa transformação oferece propriedades desejáveis para o nosso modelo, já que a transformação
-$ln(y)$ resulta em uma representação que aproxima as variações percentuais ($\Delsta$%) da variável, o que facilita a interpretação dos resultados.
+$ln(y)$ resulta em uma representação que aproxima as variações percentuais ($\Delta$%) da variável, o que facilita a interpretação dos resultados.
 
 O resultado desta transformação é o gráfico a seguir:
 
@@ -93,7 +93,23 @@ $ln(Produto_{percapita}) = \beta_0 + \beta_1 * Corrupção + \beta_2 * Educaçã
 
 As variáveis "Educação" e "Saúde" são adicionadas ao modelo como variáveis de controle. A variável 'Educação' é medida pelo percentual de pessoas que concluem o ensino primário, enquanto 'Saúde' é representada pela expectativa de vida. Esses fatores serão considerados como variáveis adicionais que podem influenciar a variável dependente, permitindo um ajuste mais preciso do modelo ao controlar possíveis efeitos de outros determinantes relevantes.
 
+## **Resultados**
+
+A estimação do modelo proposto revelou-se bastante interessante para mensurar os efeitos da corrupção sobre o crescimento econômico. O valor da variável corrupção foi altamente significativo, com um p-valor inferior a 0,01, indicando um nível de confiança de 99%. O coeficiente estimado foi aproximadamente -1,38, o que sugere que uma variação de 1 ponto no índice de corrupção estaria associada a uma redução de 1,38% no crescimento econômico. Esses resultados reforçam a importância da corrupção como um fator negativo para o desempenho econômico.
+
+![](reg_summary.png)
+
+Além disso, o modelo apresentou um valor de R² de 78,7%, o que indica que ele é capaz de explicar 78,7% das variações observadas na variável dependente a partir das variáveis explicativas. Esse alto valor de R² sugere uma boa adequação do modelo aos dados. O gráfico abaixo ilustra essa relação, demonstrando como as previsões geradas pelo modelo estão bem alinhadas com os valores reais da variável dependente.
+
+![](chart_reg.png)
+
 ## **Conclusão**
+
+Por fim, é claro que a análise demonstra uma relação entre a corrupção e o crescimento econômico. No entanto, é importante destacar que este modelo não estabelece uma relação de causalidade. Para isso, seria necessário um sólido arcabouço teórico e, possivelmente, a aplicação de modelos mais sofisticados que permitam capturar as dinâmicas causais de forma mais robusta.
+
+Além disso, é evidente que as regressões lineares representam apenas uma das abordagens possíveis para a análise de dados. Existem diversas outras técnicas que podem ser utilizadas, cada uma com suas peculiaridades e vantagens, dependendo dos objetivos da pesquisa e das características dos dados.
+
+Este exercício teve como objetivo principal ilustrar como podemos utilizar regressões lineares para analisar dados em corte transversal, oferecendo uma visão introdutória e prática sobre a aplicação dessa ferramenta estatística.
 
 Por hoje é só.
 

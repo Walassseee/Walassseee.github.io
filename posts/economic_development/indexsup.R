@@ -1,3 +1,5 @@
+# lib de dados #################################################################
+
 library(dplyr)
 library(readxl)
 library(corrplot)
@@ -187,6 +189,58 @@ ggplot(data, aes(x = Growth_log)) +
     plot.caption.position = "plot"
   )
 
+# reg de dados ################################################################
 
+reg <- lm(Growth_log ~ Corruption + Education + `Life expectancy`, data = data)
 
+data$predicted_values <- predict(reg, newdata = data)
+
+ggplot(data, aes(x = predicted_values, y = Growth_log)) +
+  geom_point(color = "#55b748", size = 2.5, shape = 21, fill = "white", stroke = 1.5) +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  labs(
+    title = "Verificação das Previsões da Regressão",
+    subtitle = "Comparação entre os valores previstos e os valores reais",
+    x = "Valores Previstos", 
+    y = "Valores Observados",
+    caption = "<b>Fonte</b>: Elaboração do autor."
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
+    plot.caption.position = "plot"
+  )
+
+summary(reg)
+
+summary_reg <- summary(reg)
+
+coef_table <- as.data.frame(summary_reg$coefficients)
+coef_table <- coef_table[, c("Estimate", "Std. Error", "t value", "Pr(>|t|)")]
+coef_table$Variable <- rownames(coef_table)
+
+coef_table_gt <- coef_table %>%
+  gt() %>%
+  tab_header(
+    title = "Resumo do Modelo de Regressão Linear"
+  ) %>%
+  cols_label(
+    Variable = "Variável",
+    Estimate = "Estimativa",
+    `Std. Error` = "Erro Padrão",
+    `t value` = "Valor t",
+    `Pr(>|t|)` = "Valor p"
+  ) %>%
+  tab_spanner(
+    label = "Estimativas e Testes",
+    columns = c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
+  ) %>%
+  tab_footnote(
+    footnote = "Fonte: Elaboração do autor."
+  )
+
+coef_table_gt
 
