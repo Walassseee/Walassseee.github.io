@@ -5,6 +5,9 @@ library(car)
 library(gt)
 library(e1071)
 library(tibble)
+library(ggplot2)
+library(ggtext)
+library(gridExtra)
 
 # etl de dados #################################################################
 
@@ -119,4 +122,71 @@ summary_table <- gt(summary_table) |> tab_header(
   footnote = "Fonte: Elaboração do autor."
 )
 summary_table
+
+plot_growth <- ggplot(data, aes(x = Growth)) +
+  geom_histogram(bins = 20, fill = "#55b748", color = "black", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
+  scale_y_continuous(labels = NULL) +
+  labs(
+    title = "Distribuição do Crescimento Econômico",
+    subtitle = "Histograma da variável Crescimento Econômico",
+    x = NULL, y = NULL,
+    caption = "<b>Fonte</b>: Elaboração do autor."
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
+    plot.caption.position = "plot"
+  )
+
+plot_corruption <- ggplot(data, aes(x = Corruption)) +
+  geom_histogram(bins = 20, fill = "#1a2e19", color = "black", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
+  scale_y_continuous(labels = NULL) +
+  labs(
+    title = "Distribuição do Índice de Corrupção",
+    subtitle = "Histograma da variável Índice de Corrupção",
+    x = NULL, y = NULL,
+    caption = "<b>Fonte</b>: Elaboração do autor."
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
+    plot.caption.position = "plot"
+  )
+
+grid.arrange(plot_growth, plot_corruption, ncol = 2)
+
+data$Growth_log <- log(data$Growth)
+
+ggplot(data, aes(x = Growth_log)) +
+  geom_histogram(bins = 20, fill = "#55b748", color = "black", alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "#000000", linewidth = 1) +
+  scale_y_continuous(labels = NULL) +
+  labs(
+    title = "Distribuição Logarítmica do Crescimento Econômico",
+    subtitle = "Histograma após transformação logarítmica",
+    x = NULL, y = NULL,
+    caption = "<b>Fonte</b>: Elaboração do autor."
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.title = element_text(hjust = 0, face = "bold"),
+    plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_markdown(hjust = 0),
+    plot.caption.position = "plot"
+  )
+
+
+
 

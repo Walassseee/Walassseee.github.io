@@ -31,7 +31,7 @@ Abaixo temos uma breve visão de como os dados se comportam:
 ![](dataset_table.png)
 A base contém dados de 43 nações para 2022, caracterizando os dados como uma seção transversal (cross-section). Este formato é significativo, pois orienta na seleção do modelo mais apropriado para a análise.
 
-## **Análise Descritiva das Distribuições**
+## **Variável Dependente e Explicativa**
 
 Nesta parte, realizaremos algumas análises descritivas dos dados, visando entender mais profundamente a dinâmica das distribuições das variáveis. Esta etapa é fundamental, uma vez que os modelos de regressão linear são mais adequados para variáveis contínuas e, idealmente, para aquelas com uma distribuição próxima à _distribuição normal_.
 
@@ -54,6 +54,45 @@ Abaixo mostro os resultados dos testes que confirmam a não normalidade dos dado
 
 ![](norm_test_yx.png)
 
+Por fim, podemos observar os gráficos das distribuições de probabilidade, que nos permitem analisar o comportamento das variáveis de forma visual.
+
+![](dist_chart_yx.png)
+
+Os gráficos tornam evidente as assimetrias das distribuições, proporcionando uma visualização clara do comportamento das variáveis.
+
+### **Transformação Logaritimica**
+
+Vamos aplicar uma transformação logarítmica nos dados de crescimento econômico com o objetivo de corrigir a assimetria observada na distribuição da variável. Além disso, essa transformação oferece propriedades desejáveis para o nosso modelo, já que a transformação
+$ln(y)$ resulta em uma representação que aproxima as variações percentuais ($\Delsta$%) da variável, o que facilita a interpretação dos resultados.
+
+O resultado desta transformação é o gráfico a seguir:
+
+![](log_dist_chart_y.png)
+
+Não aplicaremos a mesma transformação à variável corrupção, pois, tratando-se de um índice, a transformação logarítmica não é recomendada, uma vez que pode distorcer a interpretação dos dados e a relação entre os valores.
+
+## **O Modelo Utilizado**
+
+O modelo que será utilizado é a regressão linear, que estabelece uma relação linear entre a variável dependente e as variáveis explicativas. Isso significa que o efeito das variáveis explicativas sobre a variável dependente é constante ao longo de todo o intervalo de análise, ou seja, o impacto de uma mudança na variável explicativa é o mesmo em qualquer ponto da distribuição da variável dependente.
+
+m sua forma simples, um modelo de regressão linear é descrito pela seguinte equação:
+
+$y_i = \beta_0 + \beta_1 * x_i + \epsilon_i$
+
+Onde:
+
+$y_i$ é a variável dependente;
+$x_i$ é a variável explicativa;
+$\beta_0$ é o termo constante;
+$\beta_1$ é o coeficiente de inclinação, que representa o efeito da variável explicativa sobre a variável dependente;
+$\epsilon_i$ é o erro de estimação, que captura a variação não explicada pelo modelo.
+
+Embora não abordemos a demonstração matemática deste modelo neste post, é importante entender esses componentes para seguir com a explicação do modelo que será utilizado a seguir.
+
+$ln(Produto_{percapita}) = \beta_0 + \beta_1 * Corrupção + \beta_2 * Educação + \beta_4 * Saúde + \epsilon$
+
+As variáveis "Educação" e "Saúde" são adicionadas ao modelo como variáveis de controle. A variável 'Educação' é medida pelo percentual de pessoas que concluem o ensino primário, enquanto 'Saúde' é representada pela expectativa de vida. Esses fatores serão considerados como variáveis adicionais que podem influenciar a variável dependente, permitindo um ajuste mais preciso do modelo ao controlar possíveis efeitos de outros determinantes relevantes.
+
 ## **Conclusão**
 
 Por hoje é só.
@@ -62,4 +101,4 @@ Fiquem com Deus!
 
 Tchau.
 
-**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_](https://github.com/Walassseee/Walassseee.github.io/tree/main/posts/economic_development).**
+**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_](https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/economic_development/indexsup.R).**
