@@ -1,0 +1,27 @@
+---
+title: "Determinação de Preços de Imóveis"
+subtitle: "Modelos de Regressões Espaciais"
+description: ""
+author: "Walasse Tomaz"
+date: "2024-11-14"
+image: "thumbnail_post3.png"
+categories:
+  - Econometria
+  - Econometria Espaciais
+  - Análise Descritiva
+  - AEDE
+---
+
+Olá, tudo bem?
+
+
+
+## **Conclusão**
+
+Por hoje é só.
+
+Fiquem com Deus!
+
+Tchau.
+
+**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_]().**
