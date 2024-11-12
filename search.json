@@ -70,6 +70,13 @@
     "text": "Conclusão\nPor fim, é claro que a análise demonstra uma relação entre a corrupção e o crescimento econômico. No entanto, é importante destacar que este modelo não estabelece uma relação de causalidade. Para isso, seria necessário um sólido arcabouço teórico e, possivelmente, a aplicação de modelos mais sofisticados que permitam capturar as dinâmicas causais de forma mais robusta.\nAlém disso, é evidente que as regressões lineares representam apenas uma das abordagens possíveis para a análise de dados. Existem diversas outras técnicas que podem ser utilizadas, cada uma com suas peculiaridades e vantagens, dependendo dos objetivos da pesquisa e das características dos dados.\nEste exercício teve como objetivo principal ilustrar como podemos utilizar regressões lineares para analisar dados em corte transversal, oferecendo uma visão introdutória e prática sobre a aplicação dessa ferramenta estatística.\nPor hoje é só.\nFiquem com Deus!\nTchau.\nTodos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu Github."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Portifólio de Data Science",
+    "section": "",
+    "text": "Determinação de Preços de Imóveis\n\n\nModelos de Regressões Espaciais\n\n\n\nEconometria\n\n\nEconometria Espaciais\n\n\nAnálise Descritiva\n\n\nAEDE\n\n\n\n\n\n\n\n\n\nNov 14, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nCrescimento Econômico\n\n\nUma Análise de Regressão\n\n\n\nEconometria\n\n\nRegressão Linear\n\n\nAnálise Descritiva\n\n\nCrescimento Econômico\n\n\n\nNeste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?\n\n\n\n\n\nNov 11, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nO Mercado Florestal Brasileiro\n\n\nUma Análise Descritiva de Dados\n\n\n\nEconometria\n\n\nMercado Florestal\n\n\nAnálise Descritiva\n\n\n\nNeste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE).\n\n\n\n\n\nNov 8, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nBem-Vindo ao Meu Portifólio\n\n\nModelagem Econométrica e Ciência de Dados\n\n\n\nEconometria\n\n\n\nBem-vindo ao meu portifólio, no qual compartilho pesquisas em Modelagem Econométrica, Otimização e Ciência de Dados. Neste local, pretendo compartilhar minhas habilidades, experiências e interesses, bem como explorar novos tópicos que estou aprendendo.\n\n\n\n\n\nNov 6, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Sobre",
@@ -77,11 +84,18 @@
     "text": "Estudante de Economia pela Universidade Federal do Paraná e Analista de Custos Júnior pela Oregon Tool, Aplicando Insights de Projetos de Economia Aplicada e Modelagem Econométrica Desenvolvidos Durante Meus Estudos às Funções onde atuo. Comprometido em Contribuir para o Sucesso da Equipe e da Empresa."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Portifólio de Data Science",
+    "objectID": "posts/house_price/index.html",
+    "href": "posts/house_price/index.html",
+    "title": "Determinação de Preços de Imóveis",
     "section": "",
-    "text": "Crescimento Econômico\n\n\nUma Análise de Regressão\n\n\n\nEconometria\n\n\nRegressão Linear\n\n\nAnálise Descritiva\n\n\nCrescimento Econômico\n\n\n\nNeste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?\n\n\n\n\n\nNov 11, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nO Mercado Florestal Brasileiro\n\n\nUma Análise Descritiva de Dados\n\n\n\nEconometria\n\n\nMercado Florestal\n\n\nAnálise Descritiva\n\n\n\nNeste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE).\n\n\n\n\n\nNov 8, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nBem-Vindo ao Meu Portifólio\n\n\nModelagem Econométrica e Ciência de Dados\n\n\n\nEconometria\n\n\n\nBem-vindo ao meu portifólio, no qual compartilho pesquisas em Modelagem Econométrica, Otimização e Ciência de Dados. Neste local, pretendo compartilhar minhas habilidades, experiências e interesses, bem como explorar novos tópicos que estou aprendendo.\n\n\n\n\n\nNov 6, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\nNo matching items"
+    "text": "Olá, tudo bem?"
+  },
+  {
+    "objectID": "posts/house_price/index.html#conclusão",
+    "href": "posts/house_price/index.html#conclusão",
+    "title": "Determinação de Preços de Imóveis",
+    "section": "Conclusão",
+    "text": "Conclusão\nPor hoje é só.\nFiquem com Deus!\nTchau.\nTodos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu Github."
   },
   {
     "objectID": "posts/forest_descritive/index.html",
