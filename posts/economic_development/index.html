@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -171,8 +200,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Abaixo temos uma breve visão de como os dados se comportam:</p>
 <p><img src="dataset_table.png" class="img-fluid"> A base contém dados de 43 nações para 2022, caracterizando os dados como uma seção transversal (cross-section). Este formato é significativo, pois orienta na seleção do modelo mais apropriado para a análise.</p>
 </section>
-<section id="análise-descritiva-das-distribuições" class="level2">
-<h2 class="anchored" data-anchor-id="análise-descritiva-das-distribuições"><strong>Análise Descritiva das Distribuições</strong></h2>
+<section id="variável-dependente-e-explicativa" class="level2">
+<h2 class="anchored" data-anchor-id="variável-dependente-e-explicativa"><strong>Variável Dependente e Explicativa</strong></h2>
 <p>Nesta parte, realizaremos algumas análises descritivas dos dados, visando entender mais profundamente a dinâmica das distribuições das variáveis. Esta etapa é fundamental, uma vez que os modelos de regressão linear são mais adequados para variáveis contínuas e, idealmente, para aquelas com uma distribuição próxima à <em>distribuição normal</em>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -194,13 +223,34 @@ Note
 <p>Podemos testar essa hipótese utilizando os valores de assimetria e curtose, que fornecem informações sobre a forma da distribuição e o grau de achatamento. Além disso, é possível realizar testes de hipótese para avaliar a normalidade das distribuições, como o teste de Shapiro-Wilk, que nos ajudarão a determinar se as variáveis seguem uma distribuição normal ou não.</p>
 <p>Abaixo mostro os resultados dos testes que confirmam a não normalidade dos dados:</p>
 <p><img src="norm_test_yx.png" class="img-fluid"></p>
+<p>Por fim, podemos observar os gráficos das distribuições de probabilidade, que nos permitem analisar o comportamento das variáveis de forma visual.</p>
+<p><img src="dist_chart_yx.png" class="img-fluid"></p>
+<p>Os gráficos tornam evidente as assimetrias das distribuições, proporcionando uma visualização clara do comportamento das variáveis.</p>
+<section id="transformação-logaritimica" class="level3">
+<h3 class="anchored" data-anchor-id="transformação-logaritimica"><strong>Transformação Logaritimica</strong></h3>
+<p>Vamos aplicar uma transformação logarítmica nos dados de crescimento econômico com o objetivo de corrigir a assimetria observada na distribuição da variável. Além disso, essa transformação oferece propriedades desejáveis para o nosso modelo, já que a transformação <span class="math inline">\(ln(y)\)</span> resulta em uma representação que aproxima as variações percentuais (<span class="math inline">\(\Delsta\)</span>%) da variável, o que facilita a interpretação dos resultados.</p>
+<p>O resultado desta transformação é o gráfico a seguir:</p>
+<p><img src="log_dist_chart_y.png" class="img-fluid"></p>
+<p>Não aplicaremos a mesma transformação à variável corrupção, pois, tratando-se de um índice, a transformação logarítmica não é recomendada, uma vez que pode distorcer a interpretação dos dados e a relação entre os valores.</p>
+</section>
+</section>
+<section id="o-modelo-utilizado" class="level2">
+<h2 class="anchored" data-anchor-id="o-modelo-utilizado"><strong>O Modelo Utilizado</strong></h2>
+<p>O modelo que será utilizado é a regressão linear, que estabelece uma relação linear entre a variável dependente e as variáveis explicativas. Isso significa que o efeito das variáveis explicativas sobre a variável dependente é constante ao longo de todo o intervalo de análise, ou seja, o impacto de uma mudança na variável explicativa é o mesmo em qualquer ponto da distribuição da variável dependente.</p>
+<p>m sua forma simples, um modelo de regressão linear é descrito pela seguinte equação:</p>
+<p><span class="math inline">\(y_i = \beta_0 + \beta_1 * x_i + \epsilon_i\)</span></p>
+<p>Onde:</p>
+<p><span class="math inline">\(y_i\)</span> é a variável dependente; <span class="math inline">\(x_i\)</span> é a variável explicativa; <span class="math inline">\(\beta_0\)</span> é o termo constante; <span class="math inline">\(\beta_1\)</span> é o coeficiente de inclinação, que representa o efeito da variável explicativa sobre a variável dependente; <span class="math inline">\(\epsilon_i\)</span> é o erro de estimação, que captura a variação não explicada pelo modelo.</p>
+<p>Embora não abordemos a demonstração matemática deste modelo neste post, é importante entender esses componentes para seguir com a explicação do modelo que será utilizado a seguir.</p>
+<p><span class="math inline">\(ln(Produto_{percapita}) = \beta_0 + \beta_1 * Corrupção + \beta_2 * Educação + \beta_4 * Saúde + \epsilon\)</span></p>
+<p>As variáveis “Educação” e “Saúde” são adicionadas ao modelo como variáveis de controle. A variável ‘Educação’ é medida pelo percentual de pessoas que concluem o ensino primário, enquanto ‘Saúde’ é representada pela expectativa de vida. Esses fatores serão considerados como variáveis adicionais que podem influenciar a variável dependente, permitindo um ajuste mais preciso do modelo ao controlar possíveis efeitos de outros determinantes relevantes.</p>
 </section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão"><strong>Conclusão</strong></h2>
 <p>Por hoje é só.</p>
 <p>Fiquem com Deus!</p>
 <p>Tchau.</p>
-<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/tree/main/posts/economic_development"><em>Github</em></a>.</strong></p>
+<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/economic_development/indexsup.R"><em>Github</em></a>.</strong></p>
 
 
 </section>
