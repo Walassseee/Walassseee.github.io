@@ -192,7 +192,7 @@ window.Quarto = {
 <p>Olá, tudo bem?</p>
 <p>O crescimento econômico é um dos temas mais recorrentes quando falamos de economia. Sem dúvida, você já ouviu falar sobre o Produto Interno Bruto (PIB). Muitos associam o crescimento do PIB ao sucesso de uma gestão, mas será que isso é sempre verdade? Essa questão, no entanto, não é o foco deste post.</p>
 <p>Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis? Embora exista uma extensa literatura sobre o tema, com modelos complexos e um arcabouço teórico robusto, nossa abordagem aqui será mais prática e acessível.</p>
-<p>O exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo, incluindo a verificação de multicolinearidade e heterocedasticidade.</p>
+<p>O exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo.</p>
 <section id="dados-de-corrupção-e-crescimento-e-controles" class="level2">
 <h2 class="anchored" data-anchor-id="dados-de-corrupção-e-crescimento-e-controles"><strong>Dados de Corrupção e Crescimento e Controles</strong></h2>
 <p>Neste exercício, vamos usar informações de diversas fontes de renome. Inicialmente, o <a href="https://www.taxcomplexity.org/">Tax Complexity Index_</a> fornecerá dados acerca da complexidade fiscal de diversos países. Adicionalmente, as informações do <a href="https://ourworldindata.org/"><em>Our World in Data</em></a> abrangerão índices de corrupção e o Produto Interno Bruto per capita. Finalmente, serão obtidas variáveis de controle como Educação e Expectativa de Vida da base de dados do <a href="https://data.worldbank.org/"><em>Banco Mundial</em></a>.</p>
@@ -228,7 +228,7 @@ Note
 <p>Os gráficos tornam evidente as assimetrias das distribuições, proporcionando uma visualização clara do comportamento das variáveis.</p>
 <section id="transformação-logaritimica" class="level3">
 <h3 class="anchored" data-anchor-id="transformação-logaritimica"><strong>Transformação Logaritimica</strong></h3>
-<p>Vamos aplicar uma transformação logarítmica nos dados de crescimento econômico com o objetivo de corrigir a assimetria observada na distribuição da variável. Além disso, essa transformação oferece propriedades desejáveis para o nosso modelo, já que a transformação <span class="math inline">\(ln(y)\)</span> resulta em uma representação que aproxima as variações percentuais (<span class="math inline">\(\Delsta\)</span>%) da variável, o que facilita a interpretação dos resultados.</p>
+<p>Vamos aplicar uma transformação logarítmica nos dados de crescimento econômico com o objetivo de corrigir a assimetria observada na distribuição da variável. Além disso, essa transformação oferece propriedades desejáveis para o nosso modelo, já que a transformação <span class="math inline">\(ln(y)\)</span> resulta em uma representação que aproxima as variações percentuais (<span class="math inline">\(\Delta\)</span>%) da variável, o que facilita a interpretação dos resultados.</p>
 <p>O resultado desta transformação é o gráfico a seguir:</p>
 <p><img src="log_dist_chart_y.png" class="img-fluid"></p>
 <p>Não aplicaremos a mesma transformação à variável corrupção, pois, tratando-se de um índice, a transformação logarítmica não é recomendada, uma vez que pode distorcer a interpretação dos dados e a relação entre os valores.</p>
@@ -245,8 +245,18 @@ Note
 <p><span class="math inline">\(ln(Produto_{percapita}) = \beta_0 + \beta_1 * Corrupção + \beta_2 * Educação + \beta_4 * Saúde + \epsilon\)</span></p>
 <p>As variáveis “Educação” e “Saúde” são adicionadas ao modelo como variáveis de controle. A variável ‘Educação’ é medida pelo percentual de pessoas que concluem o ensino primário, enquanto ‘Saúde’ é representada pela expectativa de vida. Esses fatores serão considerados como variáveis adicionais que podem influenciar a variável dependente, permitindo um ajuste mais preciso do modelo ao controlar possíveis efeitos de outros determinantes relevantes.</p>
 </section>
+<section id="resultados" class="level2">
+<h2 class="anchored" data-anchor-id="resultados"><strong>Resultados</strong></h2>
+<p>A estimação do modelo proposto revelou-se bastante interessante para mensurar os efeitos da corrupção sobre o crescimento econômico. O valor da variável corrupção foi altamente significativo, com um p-valor inferior a 0,01, indicando um nível de confiança de 99%. O coeficiente estimado foi aproximadamente -1,38, o que sugere que uma variação de 1 ponto no índice de corrupção estaria associada a uma redução de 1,38% no crescimento econômico. Esses resultados reforçam a importância da corrupção como um fator negativo para o desempenho econômico.</p>
+<p><img src="reg_summary.png" class="img-fluid"></p>
+<p>Além disso, o modelo apresentou um valor de R² de 78,7%, o que indica que ele é capaz de explicar 78,7% das variações observadas na variável dependente a partir das variáveis explicativas. Esse alto valor de R² sugere uma boa adequação do modelo aos dados. O gráfico abaixo ilustra essa relação, demonstrando como as previsões geradas pelo modelo estão bem alinhadas com os valores reais da variável dependente.</p>
+<p><img src="chart_reg.png" class="img-fluid"></p>
+</section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão"><strong>Conclusão</strong></h2>
+<p>Por fim, é claro que a análise demonstra uma relação entre a corrupção e o crescimento econômico. No entanto, é importante destacar que este modelo não estabelece uma relação de causalidade. Para isso, seria necessário um sólido arcabouço teórico e, possivelmente, a aplicação de modelos mais sofisticados que permitam capturar as dinâmicas causais de forma mais robusta.</p>
+<p>Além disso, é evidente que as regressões lineares representam apenas uma das abordagens possíveis para a análise de dados. Existem diversas outras técnicas que podem ser utilizadas, cada uma com suas peculiaridades e vantagens, dependendo dos objetivos da pesquisa e das características dos dados.</p>
+<p>Este exercício teve como objetivo principal ilustrar como podemos utilizar regressões lineares para analisar dados em corte transversal, oferecendo uma visão introdutória e prática sobre a aplicação dessa ferramenta estatística.</p>
 <p>Por hoje é só.</p>
 <p>Fiquem com Deus!</p>
 <p>Tchau.</p>
