@@ -1,13 +1,13 @@
 ---
-title: "Determinação de Preços de Imóveis"
+title: "Impacto Regional no Produto per capita"
 subtitle: "Modelos de Regressões Espaciais"
 description: ""
 author: "Walasse Tomaz"
-date: "2024-11-14"
+date: "2024-11-15"
 image: "thumbnail_post3.png"
 categories:
   - Econometria
-  - Econometria Espaciais
+  - Econometria Espacial
   - Análise Descritiva
   - AEDE
 ---
