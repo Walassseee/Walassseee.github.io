@@ -74,7 +74,7 @@
     "href": "index.html",
     "title": "Portifólio de Data Science",
     "section": "",
-    "text": "Determinação de Preços de Imóveis\n\n\nModelos de Regressões Espaciais\n\n\n\nEconometria\n\n\nEconometria Espaciais\n\n\nAnálise Descritiva\n\n\nAEDE\n\n\n\n\n\n\n\n\n\nNov 14, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nCrescimento Econômico\n\n\nUma Análise de Regressão\n\n\n\nEconometria\n\n\nRegressão Linear\n\n\nAnálise Descritiva\n\n\nCrescimento Econômico\n\n\n\nNeste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?\n\n\n\n\n\nNov 11, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nO Mercado Florestal Brasileiro\n\n\nUma Análise Descritiva de Dados\n\n\n\nEconometria\n\n\nMercado Florestal\n\n\nAnálise Descritiva\n\n\n\nNeste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE).\n\n\n\n\n\nNov 8, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nBem-Vindo ao Meu Portifólio\n\n\nModelagem Econométrica e Ciência de Dados\n\n\n\nEconometria\n\n\n\nBem-vindo ao meu portifólio, no qual compartilho pesquisas em Modelagem Econométrica, Otimização e Ciência de Dados. Neste local, pretendo compartilhar minhas habilidades, experiências e interesses, bem como explorar novos tópicos que estou aprendendo.\n\n\n\n\n\nNov 6, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\nNo matching items"
+    "text": "Impacto Regional no Produto per capita\n\n\nModelos de Regressões Espaciais\n\n\n\nEconometria\n\n\nEconometria Espacial\n\n\nAnálise Descritiva\n\n\nAEDE\n\n\n\n\n\n\n\n\n\nNov 15, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nCrescimento Econômico\n\n\nUma Análise de Regressão\n\n\n\nEconometria\n\n\nRegressão Linear\n\n\nAnálise Descritiva\n\n\nCrescimento Econômico\n\n\n\nNeste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?\n\n\n\n\n\nNov 11, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nO Mercado Florestal Brasileiro\n\n\nUma Análise Descritiva de Dados\n\n\n\nEconometria\n\n\nMercado Florestal\n\n\nAnálise Descritiva\n\n\n\nNeste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE).\n\n\n\n\n\nNov 8, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\n\n\n\n\n\n\nBem-Vindo ao Meu Portifólio\n\n\nModelagem Econométrica e Ciência de Dados\n\n\n\nEconometria\n\n\n\nBem-vindo ao meu portifólio, no qual compartilho pesquisas em Modelagem Econométrica, Otimização e Ciência de Dados. Neste local, pretendo compartilhar minhas habilidades, experiências e interesses, bem como explorar novos tópicos que estou aprendendo.\n\n\n\n\n\nNov 6, 2024\n\n\nWalasse Tomaz\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -84,16 +84,16 @@
     "text": "Estudante de Economia pela Universidade Federal do Paraná e Analista de Custos Júnior pela Oregon Tool, Aplicando Insights de Projetos de Economia Aplicada e Modelagem Econométrica Desenvolvidos Durante Meus Estudos às Funções onde atuo. Comprometido em Contribuir para o Sucesso da Equipe e da Empresa."
   },
   {
-    "objectID": "posts/house_price/index.html",
-    "href": "posts/house_price/index.html",
-    "title": "Determinação de Preços de Imóveis",
+    "objectID": "posts/reginal_gdp/index.html",
+    "href": "posts/reginal_gdp/index.html",
+    "title": "Impacto Regional no Produto per capita",
     "section": "",
     "text": "Olá, tudo bem?"
   },
   {
-    "objectID": "posts/house_price/index.html#conclusão",
-    "href": "posts/house_price/index.html#conclusão",
-    "title": "Determinação de Preços de Imóveis",
+    "objectID": "posts/reginal_gdp/index.html#conclusão",
+    "href": "posts/reginal_gdp/index.html#conclusão",
+    "title": "Impacto Regional no Produto per capita",
     "section": "Conclusão",
     "text": "Conclusão\nPor hoje é só.\nFiquem com Deus!\nTchau.\nTodos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu Github."
   },
