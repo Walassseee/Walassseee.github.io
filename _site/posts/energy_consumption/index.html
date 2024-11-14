@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Walasse Tomaz">
-<meta name="dcterms.date" content="2024-11-08">
-<meta name="description" content="Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE).">
+<meta name="dcterms.date" content="2024-11-15">
+<meta name="description" content="Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz.">
 
-<title>O Mercado Florestal Brasileiro – Walasse Tomaz</title>
+<title>Consumo de Energia – Walasse Tomaz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,7 +70,37 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<meta name="quarto:status" content="draft">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -78,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -112,17 +142,17 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">O Mercado Florestal Brasileiro</h1>
-            <p class="subtitle lead">Uma Análise Descritiva de Dados</p>
+      <h1 class="title">Consumo de Energia</h1>
+            <p class="subtitle lead">Análise de Séries Temporais</p>
                   <div>
         <div class="description">
-          Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de <em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em> do <em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em>.
+          Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz.
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">Econometria</div>
-                <div class="quarto-category">Mercado Florestal</div>
                 <div class="quarto-category">Análise Descritiva</div>
+                <div class="quarto-category">Séries Temporais</div>
               </div>
                   </div>
   </div>
@@ -140,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 8, 2024</p>
+        <p class="date">November 15, 2024</p>
       </div>
     </div>
     
@@ -160,63 +190,99 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Olá, tudo bem?</p>
-<p>O estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.</p>
-<p>Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de <a href="https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9105-producao-da-extracao-vegetal-e-da-silvicultura.html"><em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em></a> do <a href="https://www.ibge.gov.br/"><em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em></a>.</p>
-<section id="resultado-do-mercado-florestal" class="level2">
-<h2 class="anchored" data-anchor-id="resultado-do-mercado-florestal"><strong>Resultado do Mercado Florestal</strong></h2>
-<p>Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$31.7 bilhões, um crescimento de 13.6% em relação ao ano anterior.</p>
-<p>Como podemos ver no gráfico abaixo, o produto <strong>Madeira em tora</strong> foi o principal motor desse crescimento, alcançando R$19.4 bilhões em 2023, um aumento de 18.1% em comparação ao ano de 2022.</p>
-<p><img src="pevs_prod.png" class="img-fluid"></p>
-<p>Quando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.</p>
-<p><img src="pevs_flow.png" class="img-fluid"></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Vale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.</p>
-</div>
-</div>
-<p>Também podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R$13.8 bilhões e R$11.5 bilhões, respectivamente. Essas duas regiões correspondem a 79.7% de toda a produção nacional.</p>
-<p><img src="pevs_map.png" class="img-fluid"></p>
+<p>Ao examinarmos o uso de energia, diversos fatores são levados em consideração. Governos e entidades necessitam de informações para apoiar políticas públicas que garantam a oferta apropriada de energia, prevenindo crises como falta de energia e instabilidade no sistema elétrico.</p>
+<p>Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz.</p>
+<section id="dados-de-consumo-de-energia" class="level2">
+<h2 class="anchored" data-anchor-id="dados-de-consumo-de-energia"><strong>Dados de Consumo de Energia</strong></h2>
+<p>Este post utiliza dados do <a href="https://www.kaggle.com/datasets/fedesoriano/electric-power-consumption">Kaggle</a>, que se referem ao consumo energético de três áreas de observação durante o período de janeiro a dezembro de 2017. Os dados originais têm uma frequência de 10 minutos, o que os qualifica como dados de alta frequência. No entanto, por motivos de foco, este assunto não será discutido neste post.</p>
+<p>Para tornar a análise mais simples, fizemos algumas alterações nos dados, como a agregação do consumo energético das três áreas, gerando um único valor total. Adicionalmente, as informações foram combinadas para mostrar o consumo diário. O resultado é um quadro de dados contendo 364 observações.</p>
+<p>Segue um exemplo de como este quadro de dados se organiza:</p>
+<p><img src="dataset.png" class="img-fluid"></p>
 </section>
-<section id="estatísticas-do-mercado-florestal" class="level2">
-<h2 class="anchored" data-anchor-id="estatísticas-do-mercado-florestal"><strong>Estatísticas do Mercado Florestal</strong></h2>
-<p>Quando observamos a série em nível de toda a produção, é evidente que ela segue o mesmo caminho do produto mais influente, a madeira em tora, assim como seu valor médio móvel, aqui escolhido o de 3 períodos pelo tamanho reduzido da amostra. Porém, caso queiramos ver a série sem a tendência, podemos utilizar a primeira diferença, que nos retorna o valor da variação.</p>
-<p><img src="pevs_level-fdiff.png" class="img-fluid"></p>
-<p>Podemos observar que, na série com a retirada da tendência, as variações em média permaneciam dentro de um intervalo estável, entre crescimento zero e um aumento de R$2.5 bilhões. No entanto, é notável o ponto de ruptura a partir de 2019, quando a série passou a operar em uma faixa superior, entre R$2.5 bilhões e R$5.0 bilhões.</p>
+<section id="tendência-sazonalidade-e-ruído" class="level2">
+<h2 class="anchored" data-anchor-id="tendência-sazonalidade-e-ruído"><strong>Tendência, Sazonalidade e Ruído</strong></h2>
+<p>Quando mencionamos dados que foram observados ao longo do tempo, estamos nos referindo a séries de tempo. Este tipo de informação requer a aplicação de métodos econométricos específicos, devido às suas particularidades. Um exemplo simples disso é a autocorrelação. Em séries temporais, é frequente que os valores presentes dependam de valores anteriores, o que indica uma estrutura de dependência ao longo do tempo.</p>
+<p>Por outro lado, modelos de dados em corte transversal, como o Gauss-Markov, consideram a dependência entre as observações como um desafio para as hipóteses que presumem a independência entre as variáveis.</p>
+<p>Segue o gráfico que demonstra a evolução da série de dados ao longo do tempo:</p>
+<p><img src="grafico_consumo_energia.png" class="img-fluid"></p>
+<p>Em séries de tempo, é possível distinguir três elementos principais:</p>
+<dl>
+<dt>Tendência</dt>
+<dd>
+É a orientação geral da série ao longo do tempo, podendo ser de expansão ou retração a longo prazo. O comportamento observado na série pode ser representado de forma linear ou polinomial.
+</dd>
+<dt>Sazonalidade</dt>
+<dd>
+Diz respeito a padrões que se repetem regularmente, como acontecimentos que acontecem em períodos diários, semanais, mensais ou anuais. A sazonalidade se manifesta como picos e vales, espelhando variações previsíveis na série.
+</dd>
+<dt>Ruído</dt>
+<dd>
+Refere-se ao elemento aleatório da série, que não pode ser antecipado pela tendência ou pela sazonalidade. Simboliza as flutuações inesperadas e os erros no modelo.
+</dd>
+</dl>
+<p><span class="math inline">\(Y_{t} = T + S + R\)</span></p>
+<p>No gráfico acima, podemos observar algumas características típicas de séries temporais: uma tendência polinomial de alta, com pontos de ruptura, e variações sazonais, evidenciadas pelos picos e vales ao longo do tempo.</p>
+<p>Para visualizar esses componentes, podemos realizar a decomposição da série temporal, um processo que separa a série em suas partes constituintes: tendência, sazonalidade e ruído. Existem diversos modelos para realizar essa decomposição, mas, como mencionamos anteriormente, esse tema foge ao escopo deste post.</p>
+<p>Abaixo, apresentamos o gráfico que ilustra a decomposição da série, destacando os três componentes principais: a tendência, a sazonalidade e o ruído. Essa decomposição é útil para entender o comportamento subjacente da série temporal e identificar padrões que podem ser utilizados em modelos de previsão.</p>
+<p><img src="grafico_decomposicao_energia.png" class="img-fluid"></p>
 </section>
-<section id="um-novo-paramatar-do-mercado-florestal" class="level2">
-<h2 class="anchored" data-anchor-id="um-novo-paramatar-do-mercado-florestal"><strong>Um Novo Paramatar do Mercado Florestal</strong></h2>
-<p>É evidente que os dados mostram um cenário otimista, com um novo patamar na produção do setor florestal, especialmente na silvicultura. No entanto, estamos lidando com variáveis econômicas mensuradas em unidades monetárias, no caso os reais, portanto, essas séries não consideram as variações de preços ocorridas durante o período analisado.</p>
+<section id="estacionariedade-e-diferenciação" class="level2">
+<h2 class="anchored" data-anchor-id="estacionariedade-e-diferenciação"><strong>Estacionariedade e Diferenciação</strong></h2>
+<p>Agora que analisamos o comportamento geral da série, incluindo a tendência e a sazonalidade, é crucial considerarmos outro fator importante: a estacionariedade. Saber se a série é estacionária é essencial para determinar o modelo econométrico mais adequado a ser utilizado.</p>
+<dl>
+<dt>Estacionariedade</dt>
+<dd>
+De forma simplificada, a estacionariedade é uma propriedade de uma série temporal onde a média e a variância permanecem constantes ao longo do tempo. Ou seja, os padrões de flutuação da série não mudam com o tempo, o que facilita a modelagem e a previsão.
+</dd>
+</dl>
+<p>Para verificar se uma série temporal é estacionária, podemos utilizar o teste de <strong>Dickey-Fuller Aumentado (ADF)</strong>. Este teste tem as seguintes hipóteses:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <em>A série não possui média e variância constantes (não é estacionária).</em></li>
+<li><span class="math inline">\(H_1\)</span>: <em>A série possui média e variância constantes (é estacionária).</em></li>
+</ul>
+<p>Caso o <em>p-valor</em> do teste seja inferior a 0.05, rejeitamos a hipótese nula (<span class="math inline">\(H_0\)</span>), o que indica que a série é estacionária.</p>
+<p>Abaixo, apresentamos o resultado do teste ADF para a série em questão:</p>
+<p><img src="adf_test.png" class="img-fluid"></p>
+<p>Podemos observar que o valor obtido para o <em>p-valor</em> do teste ADF é bem superior a 0,05 (0.39), o que nos leva a concluir que a série não é estacionária em nível. Com isso, precisamos optar por um modelo que não dependa dessa propriedade, como modelos de suavização exponencial, ou podemos aplicar o método de diferenciação para tornar a série estacionária.</p>
+<p>A diferenciação é um processo que transforma uma série não estacionária em uma série estacionária, removendo tendências e tornando as flutuações mais consistentes ao longo do tempo.</p>
+<p><span class="math inline">\(\nabla Y = Y_{t} - Y_{t-1}\)</span></p>
+<p>Para este post, optamos por realizar a diferenciação da série, o que pode ser visualizado no gráfico abaixo:</p>
+<p><img src="grafico_consumo_energia_pct.png" class="img-fluid"></p>
+<p>Após a diferenciação da série, podemos observar que ela agora se comporta de maneira estacionária, sem tendência e sem pontos de rupturas evidentes. Para confirmar se a diferenciação foi suficiente para tornar a série estacionária, aplicamos novamente o teste ADF à série diferenciada.</p>
+<p>Os resultados do teste ADF para a série diferenciada estão apresentados na tabela abaixo:</p>
+<p><img src="adf_test_diff.png" class="img-fluid"></p>
+<p>Como podemos observar, o p-valor do teste ADF para a série diferenciada está bem abaixo de 0.05 (aproximadamente 0.00). Isso indica que a série é agora estacionária, e podemos avançar para a modelagem utilizando métodos específicos para séries temporais estacionárias.</p>
+<p>Com a série agora transformada em estacionária, podemos explorar modelos adequados para este tipo de dado.</p>
+<p>A seguir, vamos detalhar o modelo escolhido e sua aplicação para prever o consumo de energia na cidade.</p>
+</section>
+<section id="modelos-univariados-de-séries-temporais" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-univariados-de-séries-temporais"><strong>Modelos Univariados de Séries Temporais</strong></h2>
+<p>O modelo escolhido para a análise desta série foi um modelo univariado, o que significa que a série temporal será estimada com base apenas em seus próprios valores passados. Dentro dessa abordagem, existem diversos modelos disponíveis, mas o modelo selecionado para esta análise foi o SARIMA.</p>
+<dl>
+<dt>Modelo SARIMA</dt>
+<dd>
+O SARIMA (Seasonal AutoRegressive Integrated Moving Average) é um modelo de série temporal univariada que considera tanto a sazonalidade quanto as defasagens (valores passados) da série e dos erros, além das diferenciações realizadas para garantir a estacionariedade. Ele é capaz de modelar séries temporais que exibem padrões sazonais (com flutuações periódicas) e não estacionárias.
+</dd>
+</dl>
+<p>Este modelo é particularmente útil para séries com componentes sazonais e não estacionárias, como é o caso do consumo de energia em várias regiões, que tende a apresentar variações periódicas ao longo do tempo.</p>
+<p>O modelo escolhido foi o modelo abaixo:</p>
+<p><span class="math inline">\((1-\Phi_{1}B)*(1-B)^1*X_t = (1+\theta_{1}B)*(1 + \Theta_{1}*B^7)*\epsilon_{t}\)</span></p>
+<p>Onde:</p>
+<ul>
+<li><span class="math inline">\(\Phi_{1}\)</span> é o parâmetro do modelo autoregressivo de ordem 1 (AR),</li>
+<li><span class="math inline">\(\theta_{1}\)</span> é o parâmetro do modelo de média móvel de ordem 1 (MA),</li>
+<li><span class="math inline">\(\Theta_{1}\)</span> é o parâmetro do modelo autoregressivo sazonal de ordem 1 (AR sazonal, com período 7),</li>
+<li><span class="math inline">\((1-B)\)</span> representa a diferenciação de ordem 1 (I),</li>
+<li><span class="math inline">\(B^7\)</span> representa o operador de defasagem sazonal de 7 períodos.</li>
+</ul>
+<p>Essa equação descreve como os valores da série temporal (<span class="math inline">\(X_t\)</span>) são uma combinação de seus próprios valores passados, seus erros passados e a sazonalidade, tanto no nível diário quanto sazonal.</p>
 </section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão"><strong>Conclusão</strong></h2>
-<p>Por fim, esta análise descritiva levanta algumas hipóteses que poderão ser de interesse para análises futuras. Enumeradas em uma lista, temos as seguintes perguntas:</p>
-<dl>
-<dt>O crescimento se mantém com dados deflacionados?</dt>
-<dd>
-Como mencionado anteriormente, anos de alta inflação podem impactar os resultados de crescimento. Sendo assim, seria necessária uma análise mais detalhada desse fenômeno para determinar se o crescimento do setor é real ou apenas nominal.
-</dd>
-<dt>O setor empurra a economia ou é puxado por ela?</dt>
-<dd>
-Que o setor florestal é importante é inegável, mas estamos tratando de um setor que é a locomotiva da economia brasileira ou de um setor que cresce à medida que a economia como um todo cresce?
-</dd>
-<dt>O setor é impactado por quais variáveis econômicas?</dt>
-<dd>
-Quais são os determinantes do crescimento do setor? Seria a demanda global, o aumento da produtividade e o barateamento dos preços relativos? Ou o acesso ao crédito?
-</dd>
-</dl>
-<p>Essas questões podem nos ajudar a fazer inferências e até mesmo projeções sobre o futuro do setor.</p>
 <p>Por hoje é só.</p>
 <p>Fiquem com Deus!</p>
 <p>Tchau.</p>
-<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/forest_descritive/indexsup.R"><em>Github</em></a>.</strong></p>
+<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/economic_development/indexsup.R"><em>Github</em></a>.</strong></p>
 
 
 </section>

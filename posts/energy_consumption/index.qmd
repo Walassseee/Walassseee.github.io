@@ -1,7 +1,7 @@
 ---
 title: "Consumo de Energia"
 subtitle: "Análise de Séries Temporais"
-description: ""
+description: "Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz."
 author: "Walasse Tomaz"
 date: "2024-11-15"
 image: "thumbnail_post3.png"
@@ -9,11 +9,132 @@ categories:
   - Econometria
   - Análise Descritiva
   - Séries Temporais
+draft: true
 ---
 
 Olá, tudo bem?
 
+Ao examinarmos o uso de energia, diversos fatores são levados em consideração. Governos e entidades necessitam de informações para apoiar políticas públicas que garantam a oferta apropriada de energia, prevenindo crises como falta de energia e instabilidade no sistema elétrico.
+
+Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz.
+
+## **Dados de Consumo de Energia**
+
+Este post utiliza dados do [Kaggle](https://www.kaggle.com/datasets/fedesoriano/electric-power-consumption), que se referem ao consumo energético de três áreas de observação durante o período de janeiro a dezembro de 2017. Os dados originais têm uma frequência de 10 minutos, o que os qualifica como dados de alta frequência. No entanto, por motivos de foco, este assunto não será discutido neste post.
+
+Para tornar a análise mais simples, fizemos algumas alterações nos dados, como a agregação do consumo energético das três áreas, gerando um único valor total. Adicionalmente, as informações foram combinadas para mostrar o consumo diário. O resultado é um quadro de dados contendo 364 observações.
+
+Segue um exemplo de como este quadro de dados se organiza:
+
+![](dataset.png)
+
+## **Tendência, Sazonalidade e Ruído**
+
+Quando mencionamos dados que foram observados ao longo do tempo, estamos nos referindo a séries de tempo. Este tipo de informação requer a aplicação de métodos econométricos específicos, devido às suas particularidades. Um exemplo simples disso é a autocorrelação. Em séries temporais, é frequente que os valores presentes dependam de valores anteriores, o que indica uma estrutura de dependência ao longo do tempo.
+
+Por outro lado, modelos de dados em corte transversal, como o Gauss-Markov, consideram a dependência entre as observações como um desafio para as hipóteses que presumem a independência entre as variáveis.
+
+Segue o gráfico que demonstra a evolução da série de dados ao longo do tempo:
+
+![](grafico_consumo_energia.png)
+
+Em séries de tempo, é possível distinguir três elementos principais:
+
+Tendência
+: É a orientação geral da série ao longo do tempo, podendo ser de expansão ou retração a longo prazo. O comportamento observado na série pode ser representado de forma linear ou polinomial.
+
+Sazonalidade
+: Diz respeito a padrões que se repetem regularmente, como acontecimentos que acontecem em períodos diários, semanais, mensais ou anuais. A sazonalidade se manifesta como picos e vales, espelhando variações previsíveis na série.
+
+Ruído
+: Refere-se ao elemento aleatório da série, que não pode ser antecipado pela tendência ou pela sazonalidade. Simboliza as flutuações inesperadas e os erros no modelo.
+
+$Y_{t} = T + S + R$
+
+No gráfico acima, podemos observar algumas características típicas de séries temporais: uma tendência polinomial de alta, com pontos de ruptura, e variações sazonais, evidenciadas pelos picos e vales ao longo do tempo.
+
+Para visualizar esses componentes, podemos realizar a decomposição da série temporal, um processo que separa a série em suas partes constituintes: tendência, sazonalidade e ruído. Existem diversos modelos para realizar essa decomposição, mas, como mencionamos anteriormente, esse tema foge ao escopo deste post.
+
+Abaixo, apresentamos o gráfico que ilustra a decomposição da série, destacando os três componentes principais: a tendência, a sazonalidade e o ruído. Essa decomposição é útil para entender o comportamento subjacente da série temporal e identificar padrões que podem ser utilizados em modelos de previsão.
+
+![](grafico_decomposicao_energia.png)
+
+## **Estacionariedade e Diferenciação**
+
+Agora que analisamos o comportamento geral da série, incluindo a tendência e a sazonalidade, é crucial considerarmos outro fator importante: a estacionariedade. Saber se a série é estacionária é essencial para determinar o modelo econométrico mais adequado a ser utilizado.
+
+Estacionariedade
+: De forma simplificada, a estacionariedade é uma propriedade de uma série temporal onde a média e a variância permanecem constantes ao longo do tempo. Ou seja, os padrões de flutuação da série não mudam com o tempo, o que facilita a modelagem e a previsão.
+
+Para verificar se uma série temporal é estacionária, podemos utilizar o teste de **Dickey-Fuller Aumentado (ADF)**. Este teste tem as seguintes hipóteses:
+
+* $H_0$: _A série não possui média e variância constantes (não é estacionária)._
+* $H_1$: _A série possui média e variância constantes (é estacionária)._
+
+Caso o _p-valor_ do teste seja inferior a 0.05, rejeitamos a hipótese nula ($H_0$), o que indica que a série é estacionária.
+
+Abaixo, apresentamos o resultado do teste ADF para a série em questão:
+
+![](adf_test.png)
+
+Podemos observar que o valor obtido para o _p-valor_ do teste ADF é bem superior a 0,05 (0.39), o que nos leva a concluir que a série não é estacionária em nível. Com isso, precisamos optar por um modelo que não dependa dessa propriedade, como modelos de suavização exponencial, ou podemos aplicar o método de diferenciação para tornar a série estacionária.
+
+A diferenciação é um processo que transforma uma série não estacionária em uma série estacionária, removendo tendências e tornando as flutuações mais consistentes ao longo do tempo.
+
+$\nabla Y = Y_{t} - Y_{t-1}$
+
+Para este post, optamos por realizar a diferenciação da série, o que pode ser visualizado no gráfico abaixo:
+
+![](grafico_consumo_energia_pct.png)
+
+Após a diferenciação da série, podemos observar que ela agora se comporta de maneira estacionária, sem tendência e sem pontos de rupturas evidentes. Para confirmar se a diferenciação foi suficiente para tornar a série estacionária, aplicamos novamente o teste ADF à série diferenciada.
+
+Os resultados do teste ADF para a série diferenciada estão apresentados na tabela abaixo:
+
+![](adf_test_diff.png)
+
+Como podemos observar, o p-valor do teste ADF para a série diferenciada está bem abaixo de 0.05 (aproximadamente 0.00). Isso indica que a série é agora estacionária, e podemos avançar para a modelagem utilizando métodos específicos para séries temporais estacionárias.
+
+Com a série agora transformada em estacionária, podemos explorar modelos adequados para este tipo de dado.
+
+A seguir, vamos detalhar o modelo escolhido e sua aplicação para prever o consumo de energia na cidade.
+
+## **Modelos Univariados de Séries Temporais**
+
+O modelo escolhido para a análise desta série foi um modelo univariado, o que significa que a série temporal será estimada com base apenas em seus próprios valores passados. Dentro dessa abordagem, existem diversos modelos disponíveis, mas o modelo selecionado para esta análise foi o SARIMA.
+
+Modelo SARIMA
+: O SARIMA (Seasonal AutoRegressive Integrated Moving Average) é um modelo de série temporal univariada que considera tanto a sazonalidade quanto as defasagens (valores passados) da série e dos erros, além das diferenciações realizadas para garantir a estacionariedade. Ele é capaz de modelar séries temporais que exibem padrões sazonais (com flutuações periódicas) e não estacionárias.
+
+$(1-\Phi_{1}B)*(1-B)^1*X_t = (1+\theta_{1}B)*(1 + \Theta_{1}*B^7)*\epsilon_{t}$
+
+Onde:
+
+* $\Phi_{1}$ é o parâmetro do modelo autoregressivo de ordem 1 (AR),
+* $\theta_{1}$ é o parâmetro do modelo de média móvel de ordem 1 (MA),
+* $\Theta_{1}$ é o parâmetro do modelo autoregressivo sazonal de ordem 1 (AR sazonal, com período 7),
+* $(1-B)$ representa a diferenciação de ordem 1 (I),
+* $B^7$ representa o operador de defasagem sazonal de 7 períodos.
+
+Essa equação descreve como os valores da série temporal ($X_t$) são uma combinação de seus próprios valores passados, seus erros passados e a sazonalidade, tanto no nível diário quanto sazonal.
+
+Este modelo é particularmente útil para séries com componentes sazonais e não estacionárias, como é o caso do consumo de energia em várias regiões, que tende a apresentar variações periódicas ao longo do tempo.
+
+## **Resultados e Projeções**
+
+O modelo apresentou resultados satisfatórios para nossa estimativa, conforme observado no gráfico. Ele se ajustou adequadamente aos valores reais, indicando que é capaz de capturar a dinâmica dos dados históricos de consumo de energia. Com essa precisão, é possível fazer inferências sobre os valores futuros da série, o que pode ser valioso para o planejamento e a formulação de políticas públicas voltadas ao fornecimento de energia.
+
+![](grafico_consumo_energia_prevsito.png)
+
+Os parâmetros estimados para o modelo estão apresentados abaixo. Em particular, o valor do AIC (Critério de Informação de Akaike) foi de 136,67. Embora uma otimização mais refinada para minimizar ainda mais o AIC pudesse ser realizada, não julgamos necessário, visto que o modelo já atende às nossas expectativas de previsão. A utilização do AIC como um critério de seleção do modelo demonstra que ele está bem ajustado, mas ajustes adicionais podem ser feitos dependendo de requisitos mais rigorosos para a previsão de longo prazo ou para a inclusão de outros fatores.
+
+![](model_results.png)
+ 
 ## **Conclusão**
+
+Agradeço a todos que acompanharam este post até aqui. Neste estudo, estimamos um modelo de séries temporais SARIMA para prever o consumo de energia em uma cidade. Com os resultados obtidos, é possível fornecer subsídios importantes para o apoio a políticas públicas ou para outras partes interessadas no planejamento do fornecimento de energia.
+
+Os resultados mostraram-se satisfatórios, com o modelo sendo capaz de realizar previsões precisas sobre a série histórica de consumo de energia. O erro quadrado médio (RMSE) da previsão foi de aproximadamente 0,291. Se esse valor é considerado grande ou não depende da interpretação do consumidor da informação. No entanto, para os fins desta análise, ele é coerente e aceitável, dado o contexto da previsão e a natureza dos dados analisados.
 
 Por hoje é só.
 

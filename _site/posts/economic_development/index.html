@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Walasse Tomaz">
-<meta name="dcterms.date" content="2024-11-08">
-<meta name="description" content="Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de Produção da Extração Vegetal e da Silvicultura (PEVS) do Instituto Brasileiro de Geografia e Estatística (IBGE).">
+<meta name="dcterms.date" content="2024-11-11">
+<meta name="description" content="Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?">
 
-<title>O Mercado Florestal Brasileiro – Walasse Tomaz</title>
+<title>Crescimento Econômico – Walasse Tomaz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -112,17 +141,18 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">O Mercado Florestal Brasileiro</h1>
-            <p class="subtitle lead">Uma Análise Descritiva de Dados</p>
+      <h1 class="title">Crescimento Econômico</h1>
+            <p class="subtitle lead">Uma Análise de Regressão</p>
                   <div>
         <div class="description">
-          Neste post irei desenvolver uma análise descritiva deste mercado utilizando os dados de séries temporais de produção disponibilizados pela pesquisa de <em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em> do <em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em>.
+          Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis?
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">Econometria</div>
-                <div class="quarto-category">Mercado Florestal</div>
+                <div class="quarto-category">Regressão Linear</div>
                 <div class="quarto-category">Análise Descritiva</div>
+                <div class="quarto-category">Crescimento Econômico</div>
               </div>
                   </div>
   </div>
@@ -140,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 8, 2024</p>
+        <p class="date">November 11, 2024</p>
       </div>
     </div>
     
@@ -160,15 +190,19 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Olá, tudo bem?</p>
-<p>O estudo do mercado florestal é uma área de grande interesse para mim, principalmente devido à minha atuação profissional atual, em uma empresa de suporte ao setor de silvicultura.</p>
-<p>Neste post, desenvolvo uma análise descritiva desse mercado utilizando dados de séries temporais de produção disponibilizados pela pesquisa de <a href="https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9105-producao-da-extracao-vegetal-e-da-silvicultura.html"><em>Produção da Extração Vegetal e da Silvicultura (PEVS)</em></a> do <a href="https://www.ibge.gov.br/"><em>Instituto Brasileiro de Geografia e Estatística (IBGE)</em></a>.</p>
-<section id="resultado-do-mercado-florestal" class="level2">
-<h2 class="anchored" data-anchor-id="resultado-do-mercado-florestal"><strong>Resultado do Mercado Florestal</strong></h2>
-<p>Em 2023, a produção no setor de silvicultura atingiu um novo patamar em valor de produção, totalizando R$31.7 bilhões, um crescimento de 13.6% em relação ao ano anterior.</p>
-<p>Como podemos ver no gráfico abaixo, o produto <strong>Madeira em tora</strong> foi o principal motor desse crescimento, alcançando R$19.4 bilhões em 2023, um aumento de 18.1% em comparação ao ano de 2022.</p>
-<p><img src="pevs_prod.png" class="img-fluid"></p>
-<p>Quando observamos estes valores de produção ao longo do tempo, os resultados são otimistas. Três das séries estão em patamares recordes de produção. Se esses níveis se manterão nos próximos anos, é uma incógnita, mas é possível ver uma tendência consistente de alta.</p>
-<p><img src="pevs_flow.png" class="img-fluid"></p>
+<p>O crescimento econômico é um dos temas mais recorrentes quando falamos de economia. Sem dúvida, você já ouviu falar sobre o Produto Interno Bruto (PIB). Muitos associam o crescimento do PIB ao sucesso de uma gestão, mas será que isso é sempre verdade? Essa questão, no entanto, não é o foco deste post.</p>
+<p>Neste post, vamos explorar um exercício de análise dos efeitos da corrupção sobre o crescimento econômico. Será que existe, de fato, uma relação entre essas duas variáveis? Embora exista uma extensa literatura sobre o tema, com modelos complexos e um arcabouço teórico robusto, nossa abordagem aqui será mais prática e acessível.</p>
+<p>O exercício proposto envolve uma análise descritiva dos dados obtidos, seguida da construção de um modelo de regressão linear. Vamos testar os parâmetros para avaliar a qualidade do modelo.</p>
+<section id="dados-de-corrupção-e-crescimento-e-controles" class="level2">
+<h2 class="anchored" data-anchor-id="dados-de-corrupção-e-crescimento-e-controles"><strong>Dados de Corrupção e Crescimento e Controles</strong></h2>
+<p>Neste exercício, vamos usar informações de diversas fontes de renome. Inicialmente, o <a href="https://www.taxcomplexity.org/">Tax Complexity Index_</a> fornecerá dados acerca da complexidade fiscal de diversos países. Adicionalmente, as informações do <a href="https://ourworldindata.org/"><em>Our World in Data</em></a> abrangerão índices de corrupção e o Produto Interno Bruto per capita. Finalmente, serão obtidas variáveis de controle como Educação e Expectativa de Vida da base de dados do <a href="https://data.worldbank.org/"><em>Banco Mundial</em></a>.</p>
+<p>Essas fontes proporcionam uma perspectiva confiável para analisar como elementos como a corrupção e a complexidade fiscal podem impactar o desenvolvimento econômico.</p>
+<p>Abaixo temos uma breve visão de como os dados se comportam:</p>
+<p><img src="dataset_table.png" class="img-fluid"> A base contém dados de 43 nações para 2022, caracterizando os dados como uma seção transversal (cross-section). Este formato é significativo, pois orienta na seleção do modelo mais apropriado para a análise.</p>
+</section>
+<section id="variável-dependente-e-explicativa" class="level2">
+<h2 class="anchored" data-anchor-id="variável-dependente-e-explicativa"><strong>Variável Dependente e Explicativa</strong></h2>
+<p>Nesta parte, realizaremos algumas análises descritivas dos dados, visando entender mais profundamente a dinâmica das distribuições das variáveis. Esta etapa é fundamental, uma vez que os modelos de regressão linear são mais adequados para variáveis contínuas e, idealmente, para aquelas com uma distribuição próxima à <em>distribuição normal</em>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -179,44 +213,54 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Vale ressaltar que os valores demonstrados nos gráficos estão em valores correntes, ou seja, não consideramos a inflação (aumento no nível de preços da economia). Neste primeiro momento, como estamos realizando uma análise descritiva, deixaremos essa questão de lado.</p>
+<p>A distribuição normal é uma forma comum de distribuição de probabilidade usada em estatística e ciências, marcada por sua forma simétrica e formato de sino. Ela explica a distribuição dos dados em torno de uma média, onde a maior parte dos valores se encontra próxima ao centro, com a chance de encontrar valores extremos (extremamente maiores ou menores) diminuindo à medida que nos distanciamos da média.</p>
 </div>
 </div>
-<p>Também podemos analisar a força de cada região do Brasil nessa indústria. É notável a grande produção do setor florestal nas regiões Sul e Sudeste, com valores de produção de R$13.8 bilhões e R$11.5 bilhões, respectivamente. Essas duas regiões correspondem a 79.7% de toda a produção nacional.</p>
-<p><img src="pevs_map.png" class="img-fluid"></p>
+<p>Ao analisar a distribuição das variáveis, podemos detectar eventuais assimetrias ou desvios que possam comprometer a validade dos resultados, além de auxiliar na determinação se será necessária alguma modificação nos dados antes de implementarmos o modelo.</p>
+<p>Vamos observar o comportamento da nossa variável dependente, o crescimento econômico, representado pelo Produto Interno Bruto per capita, e da nossa variável explicativa principal, a corrupção, medida pelo índice de corrupção.</p>
+<p><img src="medidas_resumo_yx.png" class="img-fluid"></p>
+<p>Como podemos observar, a mediana é menor do que a média tanto para a distribuição do crescimento econômico quanto para a corrupção. Isso pode indicar que essas variáveis apresentam distribuições assimétricas.</p>
+<p>Podemos testar essa hipótese utilizando os valores de assimetria e curtose, que fornecem informações sobre a forma da distribuição e o grau de achatamento. Além disso, é possível realizar testes de hipótese para avaliar a normalidade das distribuições, como o teste de Shapiro-Wilk, que nos ajudarão a determinar se as variáveis seguem uma distribuição normal ou não.</p>
+<p>Abaixo mostro os resultados dos testes que confirmam a não normalidade dos dados:</p>
+<p><img src="norm_test_yx.png" class="img-fluid"></p>
+<p>Por fim, podemos observar os gráficos das distribuições de probabilidade, que nos permitem analisar o comportamento das variáveis de forma visual.</p>
+<p><img src="dist_chart_yx.png" class="img-fluid"></p>
+<p>Os gráficos tornam evidente as assimetrias das distribuições, proporcionando uma visualização clara do comportamento das variáveis.</p>
+<section id="transformação-logaritimica" class="level3">
+<h3 class="anchored" data-anchor-id="transformação-logaritimica"><strong>Transformação Logaritimica</strong></h3>
+<p>Vamos aplicar uma transformação logarítmica nos dados de crescimento econômico com o objetivo de corrigir a assimetria observada na distribuição da variável. Além disso, essa transformação oferece propriedades desejáveis para o nosso modelo, já que a transformação <span class="math inline">\(ln(y)\)</span> resulta em uma representação que aproxima as variações percentuais (<span class="math inline">\(\Delta\)</span>%) da variável, o que facilita a interpretação dos resultados.</p>
+<p>O resultado desta transformação é o gráfico a seguir:</p>
+<p><img src="log_dist_chart_y.png" class="img-fluid"></p>
+<p>Não aplicaremos a mesma transformação à variável corrupção, pois, tratando-se de um índice, a transformação logarítmica não é recomendada, uma vez que pode distorcer a interpretação dos dados e a relação entre os valores.</p>
 </section>
-<section id="estatísticas-do-mercado-florestal" class="level2">
-<h2 class="anchored" data-anchor-id="estatísticas-do-mercado-florestal"><strong>Estatísticas do Mercado Florestal</strong></h2>
-<p>Quando observamos a série em nível de toda a produção, é evidente que ela segue o mesmo caminho do produto mais influente, a madeira em tora, assim como seu valor médio móvel, aqui escolhido o de 3 períodos pelo tamanho reduzido da amostra. Porém, caso queiramos ver a série sem a tendência, podemos utilizar a primeira diferença, que nos retorna o valor da variação.</p>
-<p><img src="pevs_level-fdiff.png" class="img-fluid"></p>
-<p>Podemos observar que, na série com a retirada da tendência, as variações em média permaneciam dentro de um intervalo estável, entre crescimento zero e um aumento de R$2.5 bilhões. No entanto, é notável o ponto de ruptura a partir de 2019, quando a série passou a operar em uma faixa superior, entre R$2.5 bilhões e R$5.0 bilhões.</p>
 </section>
-<section id="um-novo-paramatar-do-mercado-florestal" class="level2">
-<h2 class="anchored" data-anchor-id="um-novo-paramatar-do-mercado-florestal"><strong>Um Novo Paramatar do Mercado Florestal</strong></h2>
-<p>É evidente que os dados mostram um cenário otimista, com um novo patamar na produção do setor florestal, especialmente na silvicultura. No entanto, estamos lidando com variáveis econômicas mensuradas em unidades monetárias, no caso os reais, portanto, essas séries não consideram as variações de preços ocorridas durante o período analisado.</p>
+<section id="o-modelo-utilizado" class="level2">
+<h2 class="anchored" data-anchor-id="o-modelo-utilizado"><strong>O Modelo Utilizado</strong></h2>
+<p>O modelo que será utilizado é a regressão linear, que estabelece uma relação linear entre a variável dependente e as variáveis explicativas. Isso significa que o efeito das variáveis explicativas sobre a variável dependente é constante ao longo de todo o intervalo de análise, ou seja, o impacto de uma mudança na variável explicativa é o mesmo em qualquer ponto da distribuição da variável dependente.</p>
+<p>Em sua forma simples, um modelo de regressão linear é descrito pela seguinte equação:</p>
+<p><span class="math inline">\(y_i = \beta_0 + \beta_1 * x_i + \epsilon_i\)</span></p>
+<p>Onde:</p>
+<p><span class="math inline">\(y_i\)</span> é a variável dependente; <span class="math inline">\(x_i\)</span> é a variável explicativa; <span class="math inline">\(\beta_0\)</span> é o termo constante; <span class="math inline">\(\beta_1\)</span> é o coeficiente de inclinação, que representa o efeito da variável explicativa sobre a variável dependente; <span class="math inline">\(\epsilon_i\)</span> é o erro de estimação, que captura a variação não explicada pelo modelo.</p>
+<p>Embora não abordemos a demonstração matemática deste modelo neste post, é importante entender esses componentes para seguir com a explicação do modelo que será utilizado a seguir.</p>
+<p><span class="math inline">\(ln(Produto_{percapita}) = \beta_0 + \beta_1 * Corrupção + \beta_2 * Educação + \beta_4 * Saúde + \epsilon\)</span></p>
+<p>As variáveis “Educação” e “Saúde” são adicionadas ao modelo como variáveis de controle. A variável “Educação” é medida pelo percentual de pessoas que concluem o ensino primário, enquanto “Saúde” é representada pela expectativa de vida. Esses fatores serão considerados como variáveis adicionais que podem influenciar a variável dependente, permitindo um ajuste mais preciso do modelo ao controlar possíveis efeitos de outros determinantes relevantes.</p>
+</section>
+<section id="resultados" class="level2">
+<h2 class="anchored" data-anchor-id="resultados"><strong>Resultados</strong></h2>
+<p>A estimação do modelo proposto revelou-se bastante interessante para mensurar os efeitos da corrupção sobre o crescimento econômico. O valor da variável corrupção foi altamente significativo, com um p-valor inferior a 0,01, indicando um nível de confiança de 99%. O coeficiente estimado foi aproximadamente -1,38, o que sugere que uma variação de 1 ponto no índice de corrupção estaria associada a uma redução de 1,38% no crescimento econômico. Esses resultados reforçam a importância da corrupção como um fator negativo para o desempenho econômico.</p>
+<p><img src="reg_summary.png" class="img-fluid"></p>
+<p>Além disso, o modelo apresentou um valor de R² de 78,7%, o que indica que ele é capaz de explicar 78,7% das variações observadas na variável dependente a partir das variáveis explicativas. Esse alto valor de R² sugere uma boa adequação do modelo aos dados. O gráfico abaixo ilustra essa relação, demonstrando como as previsões geradas pelo modelo estão bem alinhadas com os valores reais da variável dependente.</p>
+<p><img src="chart_reg.png" class="img-fluid"></p>
 </section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão"><strong>Conclusão</strong></h2>
-<p>Por fim, esta análise descritiva levanta algumas hipóteses que poderão ser de interesse para análises futuras. Enumeradas em uma lista, temos as seguintes perguntas:</p>
-<dl>
-<dt>O crescimento se mantém com dados deflacionados?</dt>
-<dd>
-Como mencionado anteriormente, anos de alta inflação podem impactar os resultados de crescimento. Sendo assim, seria necessária uma análise mais detalhada desse fenômeno para determinar se o crescimento do setor é real ou apenas nominal.
-</dd>
-<dt>O setor empurra a economia ou é puxado por ela?</dt>
-<dd>
-Que o setor florestal é importante é inegável, mas estamos tratando de um setor que é a locomotiva da economia brasileira ou de um setor que cresce à medida que a economia como um todo cresce?
-</dd>
-<dt>O setor é impactado por quais variáveis econômicas?</dt>
-<dd>
-Quais são os determinantes do crescimento do setor? Seria a demanda global, o aumento da produtividade e o barateamento dos preços relativos? Ou o acesso ao crédito?
-</dd>
-</dl>
-<p>Essas questões podem nos ajudar a fazer inferências e até mesmo projeções sobre o futuro do setor.</p>
+<p>Por fim, é claro que a análise demonstra uma relação entre a corrupção e o crescimento econômico. No entanto, é importante destacar que este modelo não estabelece uma relação de causalidade. Para isso, seria necessário um sólido arcabouço teórico e, possivelmente, a aplicação de modelos mais sofisticados que permitam capturar as dinâmicas causais de forma mais robusta.</p>
+<p>Além disso, é evidente que as regressões lineares representam apenas uma das abordagens possíveis para a análise de dados. Existem diversas outras técnicas que podem ser utilizadas, cada uma com suas peculiaridades e vantagens, dependendo dos objetivos da pesquisa e das características dos dados.</p>
+<p>Este exercício teve como objetivo principal ilustrar como podemos utilizar regressões lineares para analisar dados em corte transversal, oferecendo uma visão introdutória e prática sobre a aplicação dessa ferramenta estatística.</p>
 <p>Por hoje é só.</p>
 <p>Fiquem com Deus!</p>
 <p>Tchau.</p>
-<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/forest_descritive/indexsup.R"><em>Github</em></a>.</strong></p>
+<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/economic_development/indexsup.R"><em>Github</em></a>.</strong></p>
 
 
 </section>
