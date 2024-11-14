@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/energy_consumption/index.html",
       "/posts/economic_development/index.html",
       "/posts/forest_descritive/index.html",
       "/posts/welcome/index.html"
