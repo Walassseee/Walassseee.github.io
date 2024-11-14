@@ -9,7 +9,6 @@ categories:
   - Econometria
   - Análise Descritiva
   - Séries Temporais
-draft: true
 ---
 
 Olá, tudo bem?
@@ -142,4 +141,4 @@ Fiquem com Deus!
 
 Tchau.
 
-**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_](https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/economic_development/indexsup.R).**
+**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_](https://github.com/Walassseee/Walassseee.github.io/blob/main/notebooks/indexsup.ipynb).**
