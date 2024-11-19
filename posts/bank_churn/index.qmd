@@ -1,0 +1,27 @@
+---
+title: "Perda de Clistes Bancários"
+subtitle: "Modelos de Escolha Binnaria"
+description: ""
+author: "Walasse Tomaz"
+date: "2024-11-22"
+image: "thumbnail_post4.png"
+categories:
+  - Econometria
+  - Análise Descritiva
+  - Regressão Logistica
+draft: true
+---
+
+Olá, tudo bem?
+
+
+
+## **Conclusão**
+
+Por hoje é só.
+
+Fiquem com Deus!
+
+Tchau.
+
+**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_]().**
