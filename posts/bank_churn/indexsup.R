@@ -70,6 +70,28 @@ logit <- glm(churn ~ ., data = reg_data, family = binomial(link='probit'))
 
 summary(logit)
 
+pred_prob <- predict(logit, reg_data, type = "response")
+
+pred_class <- ifelse(pred_prob > 0.5, 1, 0)
+
+conf_matrix <- table(Predicted = pred_class, Actual = reg_data$churn)
+
+conf_df <- as.data.frame(as.table(conf_matrix))
+
+library(ggplot2)
+
+ggplot(conf_df, aes(x = Actual, y = Predicted, fill = Freq)) +
+  geom_tile() +
+  geom_text(aes(label = Freq), color = "black", size = 6) + 
+  scale_fill_gradient(low = "white", high = "steelblue") + 
+  labs(title = "Heatplot da Matriz de Confusão",
+       x = "Valores Reais", y = "Valores Preditos", fill = "Frequência") +
+  theme_minimal()
+
+accuracy <- sum(diag(conf_matrix)) / sum(conf_matrix)
+cat("Acurácia:", accuracy, "\n")
+
+
 
 
 
