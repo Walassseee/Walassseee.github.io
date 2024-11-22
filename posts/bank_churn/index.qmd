@@ -14,7 +14,85 @@ draft: true
 
 Olá, tudo bem?
 
+Em muitas situações do nosso cotidiano, lidamos com questões cujas respostas não pertencem a um espaço contínuo e ordenado, mas sim a categorias bem definidas, como sim ou não. Essas situações exigem uma abordagem específica na análise de dados, especialmente quando queremos estimar a probabilidade de um evento ocorrer.
 
+Neste post, exploro os modelos de resposta binária, que são ferramentas poderosas para prever a ocorrência de eventos com duas possíveis respostas. Entre esses modelos, o mais utilizado é a regressão logística. Como exemplo prático, aplico esse modelo para estimar a probabilidade de um cliente de um banco cancelar ou manter sua conta.
+
+## **Dados de Clientes do Banco**
+
+Uma característica fundamental dos dados em modelos de escolha binária é que a variável dependente $Y_i$ não é contínua e, portanto, não segue uma distribuição normal. Em vez disso, ela assume valores discretos, geralmente representados por zeros e uns, indicando dois possíveis estados ou categorias.
+
+Esse comportamento difere dos modelos usados para dados contínuos, exigindo métodos específicos para análise e interpretação. Vale lembrar que, embora existam outros tipos de variáveis discretas, como em modelos de contagem (por exemplo, número de ocorrências), eles não são o foco deste post. Aqui, concentramo-nos exclusivamente em variáveis binárias, ideais para situações de escolha entre duas alternativas, como prever se um cliente cancelará ou manterá sua conta bancária.
+
+### **Variáveis Categóricas**
+
+As variáveis presentes nos dados frequentemente incluem informações categóricas, como o país de origem do cliente ou o gênero (masculino ou feminino). No entanto, palavras ou categorias nominais não podem ser diretamente inseridas em modelos matemáticos. Para resolver essa questão, utilizamos um recurso essencial na modelagem econométrica: as variáveis **Dummy**.
+
+Variáveis Dummy
+: As variáveis Dummy são ferramentas que convertem categorias em valores numéricos, geralmente 0 ou 1. Cada coluna representa a presença ou ausência de uma característica específica. Por exemplo, ao codificar a variável gênero, criamos uma coluna onde, 1 indica que o cliente é do gênero masculino, 0 indica que não é (ou seja, feminino, se for uma variável binária).
+
+### **Armadilha das Dummies**
+
+Ao utilizar variáveis Dummy, é importante ter cuidado com a multicolinearidade perfeita, um problema que ocorre quando uma coluna pode ser expressa como uma combinação linear exata de outra(s) coluna(s). Esse cenário inviabiliza a estimação dos coeficientes em modelos de regressão.
+
+Considere uma variável categórica como gênero com duas categorias: masculino e feminino. Se criarmos duas colunas Dummy (uma para cada categoria), teremos:
+
+* **Masculino**: 1 para homens, 0 para mulheres.
+* **Feminino:**: 1 para mulheres, 0 para homens.
+
+Nesse caso, se a coluna Masculino for 1, a coluna Feminino será, obrigatoriamente, 0, e vice-versa. Isso cria uma relação linear exata entre as duas colunas, causando multicolinearidade perfeita.
+
+Para quem tem familiaridade com álgebra linear, isso significa que a matriz de variáveis explicativas torna-se singular (não invertível), o que impede a solução do modelo de regressão.
+
+A regra de bolso é simples: sempre utilize $N−1$ Dummies, onde $N$ é o número de categorias. Ou seja, devemos excluir uma categoria ao criar as variáveis Dummy. Essa categoria omitida servirá como base de comparação para as outras.
+
+No exemplo do gênero, você pode incluir apenas a coluna Masculino (0 ou 1), com Feminino sendo a categoria base implícita. Isso garante que o modelo funcione corretamente e evita problemas de multicolinearidade.
+
+Abaixo, podemos observar como os dados são estruturados após a criação das variáveis Dummy. Neste exemplo, as colunas referentes a feminino e ao país Espanha foram omitidas, seguindo a regra para evitar multicolinearidade:
+
+![](data_dummy.png)
+
+## **Análise Gráfica**
+
+Nesta etapa, realizamos uma análise descritiva gráfica das variáveis explicativas do nosso modelo. Abaixo estão as variáveis e seus respectivos tipos:
+
+* **Score de Crédito**: Variável contínua.
+* **País do Cliente**: Variável categórica.
+* **Gênero do Cliente**: Variável categórica.
+* **Idade do Cliente**: Variável discreta.
+
+Os gráficos a seguir ilustram como cada variável está distribuída, oferecendo insights visuais sobre o comportamento dos dados. Esses gráficos são fundamentais para identificar padrões, tendências e possíveis outliers que podem impactar o desempenho do modelo de regressão logística.
+
+![](explan1_var.png)
+A análise descritiva revela informações importantes sobre as variáveis do modelo. A distribuição do Score de Crédito apresenta valores relativamente altos, com uma média de aproximadamente 650, indicando que a maioria dos clientes tem um bom perfil de crédito. Em relação à nacionalidade, a maior parte dos clientes é da Alemanha, representando 50,14% do total, o que sugere uma predominância significativa desse grupo na base de dados. Quanto à idade, mais de 50% dos clientes têm 37 anos ou menos, valor que corresponde à mediana da distribuição. Esses padrões oferecem insights valiosos para o ajuste e a interpretação do modelo de regressão logística.
+
+### **Outras Variáveis**
+
+Além das variáveis mencionadas, o modelo inclui mais seis variáveis utilizadas para estimar a probabilidade de churn. Entre elas, destacam-se os saldos bancários, salários, anos de fidelidade e a quantidade de produtos adquiridos, que são variáveis quantitativas, podendo ser contínuas ou discretas. Essas variáveis fornecem informações relevantes sobre o comportamento financeiro e o envolvimento do cliente com o banco.
+
+Além disso, há duas variáveis binárias: a posse de um cartão de crédito e a condição de ser membro ativo. Ambas são importantes para captar características específicas que podem influenciar a decisão do cliente de permanecer ou cancelar a conta. Essas variáveis enriquecem a análise, permitindo ao modelo capturar diferentes dimensões do comportamento do cliente.
+
+![](explan2_var.png)
+
+As variáveis de fidelidade e salários apresentam um comportamento semelhante a uma distribuição uniforme, sugerindo uma distribuição equilibrada desses valores ao longo do intervalo observado. A variável que indica se o cliente é membro ativo ou não também tem uma proporção bem equilibrada, com 51,51% de clientes ativos e 48,48% inativos, o que indica uma boa representatividade de ambos os grupos na análise.
+
+A distribuição dos saldos bancários, por outro lado, se aproxima de uma distribuição normal, mas apresenta uma concentração significativa de valores em zero, o que cria um comportamento de cauda pesada na extremidade inferior. 
+
+:::{.callout-note}
+Para lidar com distribuições desse tipo, em que há um acúmulo excessivo de valores em uma extremidade, uma abordagem recomendada seria a utilização de um modelo Tobit. Esse modelo é especialmente útil para dados censurados ou truncados, capturando melhor a relação entre as variáveis explicativas e a variável dependente, mesmo na presença de valores extremos.
+:::
+
+## **O Modelo**
+
+O modelo utilizado foi a regressão logística, uma escolha adequada para situações em que a variável dependente é binária, como no caso da probabilidade de churn. Esse tipo de modelo estabelece uma relação não linear entre a variável dependente e as variáveis explicativas, o que permite estimar probabilidades de maneira mais precisa.
+
+A forma matemática do modelo de regressão logística é dada por:
+
+$P(Y_i = 1) = \frac{1}{1 + e^{(\beta_0 + \beta_1X_1)}}$
+
+Neste modelo, $P(Y_i = 1)$ representa a probabilidade de o evento ocorrer.
+
+Essa formulação transforma a combinação linear das variáveis explicativas em uma probabilidade, garantindo que os valores preditos estejam sempre no intervalo entre 0 e 1.
 
 ## **Conclusão**
 

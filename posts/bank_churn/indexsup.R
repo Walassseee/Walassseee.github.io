@@ -66,7 +66,22 @@ reg_cols <- c("credit_score","age","tenure","balance","products_number",
 
 reg_data <- data[reg_cols]
 
-logit <- glm(churn ~ ., data = reg_data, family = binomial(link='probit'))
+library(gt)
+
+gt(data = head(reg_data)) |> tab_header(
+  title = "Comportamento das Variáveis",
+  subtitle = "Dados do Modelo de Escolha Binária"
+) |> tab_footnote(
+  footnote = "Fonte: Kaggle"
+)
+
+mean(reg_data$credit_score)
+max(table(data$country))
+median(data$age)
+
+prop.table(table(data$active_member))
+
+logit <- glm(churn ~ ., data = reg_data, family = binomial(link='logit'))
 
 summary(logit)
 

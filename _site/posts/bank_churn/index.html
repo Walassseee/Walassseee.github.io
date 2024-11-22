@@ -7,10 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Walasse Tomaz">
-<meta name="dcterms.date" content="2024-11-15">
-<meta name="description" content="Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz.">
+<meta name="dcterms.date" content="2024-11-22">
 
-<title>Consumo de Energia – Walasse Tomaz</title>
+<title>Perda de Clistes Bancários – Walasse Tomaz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,6 +69,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -107,7 +107,7 @@ window.Quarto = {
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -141,17 +141,12 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Consumo de Energia</h1>
-            <p class="subtitle lead">Análise de Séries Temporais</p>
-                  <div>
-        <div class="description">
-          Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz.
-        </div>
-      </div>
-                          <div class="quarto-categories">
+      <h1 class="title">Perda de Clistes Bancários</h1>
+            <p class="subtitle lead">Modelos de Escolha Binnaria</p>
+                                <div class="quarto-categories">
                 <div class="quarto-category">Econometria</div>
                 <div class="quarto-category">Análise Descritiva</div>
-                <div class="quarto-category">Séries Temporais</div>
+                <div class="quarto-category">Regressão Logistica</div>
               </div>
                   </div>
   </div>
@@ -169,7 +164,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 15, 2024</p>
+        <p class="date">November 22, 2024</p>
       </div>
     </div>
     
@@ -189,107 +184,44 @@ window.Quarto = {
 
 
 <p>Olá, tudo bem?</p>
-<p>Ao examinarmos o uso de energia, diversos fatores são levados em consideração. Governos e entidades necessitam de informações para apoiar políticas públicas que garantam a oferta apropriada de energia, prevenindo crises como falta de energia e instabilidade no sistema elétrico.</p>
-<p>Neste post, pretendo estimar um modelo econométrico de séries temporais para prever o uso de energia em uma cidade, investigando como esse instrumento pode fornecer ajuda para um planejamento energético eficaz.</p>
-<section id="dados-de-consumo-de-energia" class="level2">
-<h2 class="anchored" data-anchor-id="dados-de-consumo-de-energia"><strong>Dados de Consumo de Energia</strong></h2>
-<p>Este post utiliza dados do <a href="https://www.kaggle.com/datasets/fedesoriano/electric-power-consumption">Kaggle</a>, que se referem ao consumo energético de três áreas de observação durante o período de janeiro a dezembro de 2017. Os dados originais têm uma frequência de 10 minutos, o que os qualifica como dados de alta frequência. No entanto, por motivos de foco, este assunto não será discutido neste post.</p>
-<p>Para tornar a análise mais simples, fizemos algumas alterações nos dados, como a agregação do consumo energético das três áreas, gerando um único valor total. Adicionalmente, as informações foram combinadas para mostrar o consumo diário. O resultado é um quadro de dados contendo 364 observações.</p>
-<p>Segue um exemplo de como este quadro de dados se organiza:</p>
-<p><img src="dataset.png" class="img-fluid"></p>
-</section>
-<section id="tendência-sazonalidade-e-ruído" class="level2">
-<h2 class="anchored" data-anchor-id="tendência-sazonalidade-e-ruído"><strong>Tendência, Sazonalidade e Ruído</strong></h2>
-<p>Quando mencionamos dados que foram observados ao longo do tempo, estamos nos referindo a séries de tempo. Este tipo de informação requer a aplicação de métodos econométricos específicos, devido às suas particularidades. Um exemplo simples disso é a autocorrelação. Em séries temporais, é frequente que os valores presentes dependam de valores anteriores, o que indica uma estrutura de dependência ao longo do tempo.</p>
-<p>Por outro lado, modelos de dados em corte transversal, como o Gauss-Markov, consideram a dependência entre as observações como um desafio para as hipóteses que presumem a independência entre as variáveis.</p>
-<p>Segue o gráfico que demonstra a evolução da série de dados ao longo do tempo:</p>
-<p><img src="grafico_consumo_energia.png" class="img-fluid"></p>
-<p>Em séries de tempo, é possível distinguir três elementos principais:</p>
+<p>Em muitas situações do nosso cotidiano, lidamos com questões cujas respostas não pertencem a um espaço contínuo e ordenado, mas sim a categorias bem definidas, como sim ou não. Essas situações exigem uma abordagem específica na análise de dados, especialmente quando queremos estimar a probabilidade de um evento ocorrer.</p>
+<p>Neste post, exploro os modelos de resposta binária, que são ferramentas poderosas para prever a ocorrência de eventos com duas possíveis respostas. Entre esses modelos, o mais utilizado é a regressão logística. Como exemplo prático, aplico esse modelo para estimar a probabilidade de um cliente de um banco cancelar ou manter sua conta.</p>
+<section id="dados-de-clientes-do-banco" class="level2">
+<h2 class="anchored" data-anchor-id="dados-de-clientes-do-banco"><strong>Dados de Clientes do Banco</strong></h2>
+<p>Uma característica fundamental dos dados em modelos de escolha binária é que a variável dependente <span class="math inline">\(Y_i\)</span> não é contínua e, portanto, não segue uma distribuição normal. Em vez disso, ela assume valores discretos, geralmente representados por zeros e uns, indicando dois possíveis estados ou categorias.</p>
+<p>Esse comportamento difere dos modelos usados para dados contínuos, exigindo métodos específicos para análise e interpretação. Vale lembrar que, embora existam outros tipos de variáveis discretas, como em modelos de contagem (por exemplo, número de ocorrências), eles não são o foco deste post. Aqui, concentramo-nos exclusivamente em variáveis binárias, ideais para situações de escolha entre duas alternativas, como prever se um cliente cancelará ou manterá sua conta bancária.</p>
+<section id="variáveis-categóricas" class="level3">
+<h3 class="anchored" data-anchor-id="variáveis-categóricas"><strong>Variáveis Categóricas</strong></h3>
+<p>As variáveis presentes nos dados frequentemente incluem informações categóricas, como o país de origem do cliente ou o gênero (masculino ou feminino). No entanto, palavras ou categorias nominais não podem ser diretamente inseridas em modelos matemáticos. Para resolver essa questão, utilizamos um recurso essencial na modelagem econométrica: as variáveis <strong>Dummy</strong>.</p>
 <dl>
-<dt>Tendência</dt>
+<dt>Variáveis Dummy</dt>
 <dd>
-É a orientação geral da série ao longo do tempo, podendo ser de expansão ou retração a longo prazo. O comportamento observado na série pode ser representado de forma linear ou polinomial.
-</dd>
-<dt>Sazonalidade</dt>
-<dd>
-Diz respeito a padrões que se repetem regularmente, como acontecimentos que acontecem em períodos diários, semanais, mensais ou anuais. A sazonalidade se manifesta como picos e vales, espelhando variações previsíveis na série.
-</dd>
-<dt>Ruído</dt>
-<dd>
-Refere-se ao elemento aleatório da série, que não pode ser antecipado pela tendência ou pela sazonalidade. Simboliza as flutuações inesperadas e os erros no modelo.
+As variáveis Dummy são ferramentas que convertem categorias em valores numéricos, geralmente 0 ou 1. Cada coluna representa a presença ou ausência de uma característica específica. Por exemplo, ao codificar a variável gênero, criamos uma coluna onde, 1 indica que o cliente é do gênero masculino, 0 indica que não é (ou seja, feminino, se for uma variável binária).
 </dd>
 </dl>
-<p><span class="math inline">\(Y_{t} = T + S + R\)</span></p>
-<p>No gráfico acima, podemos observar algumas características típicas de séries temporais: uma tendência polinomial de alta, com pontos de ruptura, e variações sazonais, evidenciadas pelos picos e vales ao longo do tempo.</p>
-<p>Para visualizar esses componentes, podemos realizar a decomposição da série temporal, um processo que separa a série em suas partes constituintes: tendência, sazonalidade e ruído. Existem diversos modelos para realizar essa decomposição, mas, como mencionamos anteriormente, esse tema foge ao escopo deste post.</p>
-<p>Abaixo, apresentamos o gráfico que ilustra a decomposição da série, destacando os três componentes principais: a tendência, a sazonalidade e o ruído. Essa decomposição é útil para entender o comportamento subjacente da série temporal e identificar padrões que podem ser utilizados em modelos de previsão.</p>
-<p><img src="grafico_decomposicao_energia.png" class="img-fluid"></p>
 </section>
-<section id="estacionariedade-e-diferenciação" class="level2">
-<h2 class="anchored" data-anchor-id="estacionariedade-e-diferenciação"><strong>Estacionariedade e Diferenciação</strong></h2>
-<p>Agora que analisamos o comportamento geral da série, incluindo a tendência e a sazonalidade, é crucial considerarmos outro fator importante: a estacionariedade. Saber se a série é estacionária é essencial para determinar o modelo econométrico mais adequado a ser utilizado.</p>
-<dl>
-<dt>Estacionariedade</dt>
-<dd>
-De forma simplificada, a estacionariedade é uma propriedade de uma série temporal onde a média e a variância permanecem constantes ao longo do tempo. Ou seja, os padrões de flutuação da série não mudam com o tempo, o que facilita a modelagem e a previsão.
-</dd>
-</dl>
-<p>Para verificar se uma série temporal é estacionária, podemos utilizar o teste de <strong>Dickey-Fuller Aumentado (ADF)</strong>. Este teste tem as seguintes hipóteses:</p>
+<section id="armadilha-das-dummies" class="level3">
+<h3 class="anchored" data-anchor-id="armadilha-das-dummies"><strong>Armadilha das Dummies</strong></h3>
+<p>Ao utilizar variáveis Dummy, é importante ter cuidado com a multicolinearidade perfeita, um problema que ocorre quando uma coluna pode ser expressa como uma combinação linear exata de outra(s) coluna(s). Esse cenário inviabiliza a estimação dos coeficientes em modelos de regressão.</p>
+<p>Considere uma variável categórica como gênero com duas categorias: masculino e feminino. Se criarmos duas colunas Dummy (uma para cada categoria), teremos:</p>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: <em>A série não possui média e variância constantes (não é estacionária).</em></li>
-<li><span class="math inline">\(H_1\)</span>: <em>A série possui média e variância constantes (é estacionária).</em></li>
+<li><strong>Masculino</strong>: 1 para homens, 0 para mulheres.</li>
+<li><strong>Feminino:</strong>: 1 para mulheres, 0 para homens.</li>
 </ul>
-<p>Caso o <em>p-valor</em> do teste seja inferior a 0.05, rejeitamos a hipótese nula (<span class="math inline">\(H_0\)</span>), o que indica que a série é estacionária.</p>
-<p>Abaixo, apresentamos o resultado do teste ADF para a série em questão:</p>
-<p><img src="adf_test.png" class="img-fluid"></p>
-<p>Podemos observar que o valor obtido para o <em>p-valor</em> do teste ADF é bem superior a 0,05 (0.39), o que nos leva a concluir que a série não é estacionária em nível. Com isso, precisamos optar por um modelo que não dependa dessa propriedade, como modelos de suavização exponencial, ou podemos aplicar o método de diferenciação para tornar a série estacionária.</p>
-<p>A diferenciação é um processo que transforma uma série não estacionária em uma série estacionária, removendo tendências e tornando as flutuações mais consistentes ao longo do tempo.</p>
-<p><span class="math inline">\(\nabla Y = Y_{t} - Y_{t-1}\)</span></p>
-<p>Para este post, optamos por realizar a diferenciação da série, o que pode ser visualizado no gráfico abaixo:</p>
-<p><img src="grafico_consumo_energia_pct.png" class="img-fluid"></p>
-<p>Após a diferenciação da série, podemos observar que ela agora se comporta de maneira estacionária, sem tendência e sem pontos de rupturas evidentes. Para confirmar se a diferenciação foi suficiente para tornar a série estacionária, aplicamos novamente o teste ADF à série diferenciada.</p>
-<p>Os resultados do teste ADF para a série diferenciada estão apresentados na tabela abaixo:</p>
-<p><img src="adf_test_diff.png" class="img-fluid"></p>
-<p>Como podemos observar, o p-valor do teste ADF para a série diferenciada está bem abaixo de 0.05 (aproximadamente 0.00). Isso indica que a série é agora estacionária, e podemos avançar para a modelagem utilizando métodos específicos para séries temporais estacionárias.</p>
-<p>Com a série agora transformada em estacionária, podemos explorar modelos adequados para este tipo de dado.</p>
-<p>A seguir, vamos detalhar o modelo escolhido e sua aplicação para prever o consumo de energia na cidade.</p>
+<p>Nesse caso, se a coluna Masculino for 1, a coluna Feminino será, obrigatoriamente, 0, e vice-versa. Isso cria uma relação linear exata entre as duas colunas, causando multicolinearidade perfeita.</p>
+<p>Para quem tem familiaridade com álgebra linear, isso significa que a matriz de variáveis explicativas torna-se singular (não invertível), o que impede a solução do modelo de regressão.</p>
+<p>A regra de bolso é simples: sempre utilize <span class="math inline">\(N−1\)</span> Dummies, onde <span class="math inline">\(N\)</span> é o número de categorias. Ou seja, devemos excluir uma categoria ao criar as variáveis Dummy. Essa categoria omitida servirá como base de comparação para as outras.</p>
+<p>No exemplo do gênero, você pode incluir apenas a coluna Masculino (0 ou 1), com Feminino sendo a categoria base implícita. Isso garante que o modelo funcione corretamente e evita problemas de multicolinearidade.</p>
+<p>Abaixo, podemos observar como os dados são estruturados após a criação das variáveis Dummy. Neste exemplo, as colunas referentes a feminino e ao país Espanha foram omitidas, seguindo a regra para evitar multicolinearidade:</p>
+<p><img src="data_dummy.png" class="img-fluid"></p>
 </section>
-<section id="modelos-univariados-de-séries-temporais" class="level2">
-<h2 class="anchored" data-anchor-id="modelos-univariados-de-séries-temporais"><strong>Modelos Univariados de Séries Temporais</strong></h2>
-<p>O modelo escolhido para a análise desta série foi um modelo univariado, o que significa que a série temporal será estimada com base apenas em seus próprios valores passados. Dentro dessa abordagem, existem diversos modelos disponíveis, mas o modelo selecionado para esta análise foi o SARIMA.</p>
-<dl>
-<dt>Modelo SARIMA</dt>
-<dd>
-O SARIMA (Seasonal AutoRegressive Integrated Moving Average) é um modelo de série temporal univariada que considera tanto a sazonalidade quanto as defasagens (valores passados) da série e dos erros, além das diferenciações realizadas para garantir a estacionariedade. Ele é capaz de modelar séries temporais que exibem padrões sazonais (com flutuações periódicas) e não estacionárias.
-</dd>
-</dl>
-<p><span class="math inline">\((1-\Phi_{1}B)*(1-B)^1*X_t = (1+\theta_{1}B)*(1 + \Theta_{1}*B^7)*\epsilon_{t}\)</span></p>
-<p>Onde:</p>
-<ul>
-<li><span class="math inline">\(\Phi_{1}\)</span> é o parâmetro do modelo autoregressivo de ordem 1 (AR),</li>
-<li><span class="math inline">\(\theta_{1}\)</span> é o parâmetro do modelo de média móvel de ordem 1 (MA),</li>
-<li><span class="math inline">\(\Theta_{1}\)</span> é o parâmetro do modelo autoregressivo sazonal de ordem 1 (AR sazonal, com período 7),</li>
-<li><span class="math inline">\((1-B)\)</span> representa a diferenciação de ordem 1 (I),</li>
-<li><span class="math inline">\(B^7\)</span> representa o operador de defasagem sazonal de 7 períodos.</li>
-</ul>
-<p>Essa equação descreve como os valores da série temporal (<span class="math inline">\(X_t\)</span>) são uma combinação de seus próprios valores passados, seus erros passados e a sazonalidade, tanto no nível diário quanto sazonal.</p>
-<p>Este modelo é particularmente útil para séries com componentes sazonais e não estacionárias, como é o caso do consumo de energia em várias regiões, que tende a apresentar variações periódicas ao longo do tempo.</p>
-</section>
-<section id="resultados-e-projeções" class="level2">
-<h2 class="anchored" data-anchor-id="resultados-e-projeções"><strong>Resultados e Projeções</strong></h2>
-<p>O modelo apresentou resultados satisfatórios para nossa estimativa, conforme observado no gráfico. Ele se ajustou adequadamente aos valores reais, indicando que é capaz de capturar a dinâmica dos dados históricos de consumo de energia. Com essa precisão, é possível fazer inferências sobre os valores futuros da série, o que pode ser valioso para o planejamento e a formulação de políticas públicas voltadas ao fornecimento de energia.</p>
-<p><img src="grafico_consumo_energia_prevsito.png" class="img-fluid"></p>
-<p>Os parâmetros estimados para o modelo estão apresentados abaixo. Em particular, o valor do AIC (Critério de Informação de Akaike) foi de 136,67. Embora uma otimização mais refinada para minimizar ainda mais o AIC pudesse ser realizada, não julgamos necessário, visto que o modelo já atende às nossas expectativas de previsão. A utilização do AIC como um critério de seleção do modelo demonstra que ele está bem ajustado, mas ajustes adicionais podem ser feitos dependendo de requisitos mais rigorosos para a previsão de longo prazo ou para a inclusão de outros fatores.</p>
-<p><img src="model_results.png" class="img-fluid"></p>
 </section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão"><strong>Conclusão</strong></h2>
-<p>Agradeço a todos que acompanharam este post até aqui. Neste estudo, estimamos um modelo de séries temporais SARIMA para prever o consumo de energia em uma cidade. Com os resultados obtidos, é possível fornecer subsídios importantes para o apoio a políticas públicas ou para outras partes interessadas no planejamento do fornecimento de energia.</p>
-<p>Os resultados mostraram-se satisfatórios, com o modelo sendo capaz de realizar previsões precisas sobre a série histórica de consumo de energia. O erro quadrado médio (RMSE) da previsão foi de aproximadamente 0,291. Se esse valor é considerado grande ou não depende da interpretação do consumidor da informação. No entanto, para os fins desta análise, ele é coerente e aceitável, dado o contexto da previsão e a natureza dos dados analisados.</p>
 <p>Por hoje é só.</p>
 <p>Fiquem com Deus!</p>
 <p>Tchau.</p>
-<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href="https://github.com/Walassseee/Walassseee.github.io/blob/main/notebooks/indexsup.ipynb"><em>Github</em></a>.</strong></p>
+<p><strong>Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu <a href=""><em>Github</em></a>.</strong></p>
 
 
 </section>
