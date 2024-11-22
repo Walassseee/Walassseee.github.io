@@ -1,7 +1,7 @@
 ---
 title: "Perda de Clistes Bancários"
 subtitle: "Modelos de Escolha Binnaria"
-description: ""
+description: "Neste post, exploro os modelos de resposta binária, que são ferramentas poderosas para prever a ocorrência de eventos com duas possíveis respostas. Entre esses modelos, o mais utilizado é a regressão logística. Como exemplo prático, aplico esse modelo para estimar a probabilidade de um cliente de um banco cancelar ou manter sua conta."
 author: "Walasse Tomaz"
 date: "2024-11-22"
 image: "thumbnail_post4.png"
@@ -9,7 +9,6 @@ categories:
   - Econometria
   - Análise Descritiva
   - Regressão Logistica
-draft: true
 ---
 
 Olá, tudo bem?
@@ -88,13 +87,41 @@ O modelo utilizado foi a regressão logística, uma escolha adequada para situa�
 
 A forma matemática do modelo de regressão logística é dada por:
 
-$P(Y_i = 1) = \frac{1}{1 + e^{(\beta_0 + \beta_1X_1)}}$
+$$P(Y_i = 1) = \frac{1}{1 + e^{(\beta_0 + \beta_1X_1)}}$$
 
 Neste modelo, $P(Y_i = 1)$ representa a probabilidade de o evento ocorrer.
 
 Essa formulação transforma a combinação linear das variáveis explicativas em uma probabilidade, garantindo que os valores preditos estejam sempre no intervalo entre 0 e 1.
 
+## **Resultados**
+
+Com a regressão logística, foi possível estimar as probabilidades de um cliente deixar o banco, considerando suas características individuais. Essa análise é extremamente útil para instituições financeiras, pois permite identificar os clientes com maior risco de churn. Com essas informações, o banco pode agir de forma proativa, oferecendo promoções ou um atendimento mais personalizado para reter esses clientes.
+
+Abaixo estão os parâmetros estimados para o modelo, que indicam o impacto de cada variável na probabilidade de churn. Esses coeficientes fornecem insights importantes sobre os fatores que mais influenciam a decisão dos clientes.
+
+![](model_result.png)
+Outro aspecto relevante é avaliar a eficiência do modelo em prever se um cliente sairá ou não do banco. Quando o objetivo é prever comportamentos futuros em vez de interpretar fatores, a performance do modelo se torna o foco principal. Para isso, utilizamos a matriz de confusão, que mostra o número de acertos e erros nas classificações realizadas pelo modelo.
+
+Com base nesses resultados, podemos calcular métricas importantes, como acurácia para avaliar o desempenho do modelo.
+
+$$
+\begin{pmatrix}
+  297 & 437 \\
+  7.666 & 1.600
+\end{pmatrix}
+$$
+
+Na matriz de confusão, os valores da diagonal secundária representam os acertos do modelo — ou seja, os casos em que as previsões coincidem com os resultados reais. Utilizando esses valores, podemos calcular a acurácia, que indica a proporção total de predições corretas.
+
+Neste caso, o modelo apresentou uma acurácia de 81,03%, o que significa que, em 81% das vezes, ele conseguiu prever corretamente se um cliente deixaria ou não o banco. Essa taxa sugere um desempenho sólido, especialmente em contextos de tomada de decisão, onde uma previsão confiável pode orientar estratégias de retenção e engajamento com maior precisão.
+
 ## **Conclusão**
+
+Os resultados da regressão logística revelam padrões importantes sobre o comportamento dos clientes. Membros ativos do banco apresentam uma probabilidade significativamente menor de deixar a instituição, o que sugere que o engajamento com serviços ou programas de fidelidade pode fortalecer a retenção.
+
+Outro fator relevante é o tempo de relacionamento com o banco: clientes com mais anos de fidelidade demonstram menor propensão ao churn, indicando que a longevidade no vínculo contribui para a estabilidade.
+
+Além disso, o modelo mostra que homens têm, em média, menor probabilidade de sair do banco em comparação com mulheres. Essas informações fornecem insights valiosos para que a instituição desenvolva estratégias direcionadas de retenção, focando nos grupos mais vulneráveis à perda.
 
 Por hoje é só.
 
@@ -102,4 +129,4 @@ Fiquem com Deus!
 
 Tchau.
 
-**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_]().**
+**Todos os códigos que foram necessários para o desenvolvimento desta análise estão disponível em meu [_Github_](https://github.com/Walassseee/Walassseee.github.io/blob/main/posts/bank_churn/indexsup.R).**
