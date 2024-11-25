@@ -1,0 +1,11 @@
+---
+title: "Série de Exportações do Brasil"
+subtitle: "Modelos de Multivariados de Séries Temporais"
+description: ""
+author: "Walasse Tomaz"
+date: "2024-11-29"
+image: ""
+categories:
+  - Econometria
+draft: true
+---
